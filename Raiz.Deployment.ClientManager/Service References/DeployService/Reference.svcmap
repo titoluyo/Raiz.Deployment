@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="117781e2-72a5-416b-8a6c-cd9438da5523" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="Raiz.Deployment.DTO" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="1aaf8a05-ebd3-448f-8fd5-2edd2da92189" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="931bd720-f219-4ec8-af4e-01150b1371c6" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="7adc38e8-a90c-4392-bf91-d9e757ce3768" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="Raiz.Deployment.DTO.xsd" MetadataType="Schema" ID="454c7868-be1b-40c2-ba66-92d3e7d0177e" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

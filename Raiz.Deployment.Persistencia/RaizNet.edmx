@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RAIZLOGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="RAIZLOGModelStoreContainer">
+          <EntitySet Name="TBMRaizNetMenu" EntityType="RAIZLOGModel.Store.TBMRaizNetMenu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBMRaizNetModulo" EntityType="RAIZLOGModel.Store.TBMRaizNetModulo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBMRaizNetPubComponente" EntityType="RAIZLOGModel.Store.TBMRaizNetPubComponente" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="TBMRaizNetMenu">
+          <Key>
+            <PropertyRef Name="idMenu" />
+          </Key>
+          <Property Name="idMenu" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="displayName" Type="varchar" MaxLength="256" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="512" />
+          <Property Name="formulario" Type="varchar" MaxLength="128" />
+          <Property Name="componente" Type="varchar" MaxLength="256" />
+          <Property Name="idMenuPadre" Type="int" />
+          <Property Name="estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBMRaizNetModulo">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombreModulo" Type="varchar" MaxLength="256" />
+          <Property Name="descripcion" Type="varchar" MaxLength="512" />
+          <Property Name="formatoVersion" Type="varchar" MaxLength="128" />
+          <Property Name="estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBMRaizNetPubComponente">
+          <Key>
+            <PropertyRef Name="idPublicacion" />
+          </Key>
+          <Property Name="idPublicacion" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="componente" Type="varchar" MaxLength="256" />
+          <Property Name="idModulo" Type="int" />
+          <Property Name="version" Type="varchar" MaxLength="128" />
+          <Property Name="descargaObligatoria" Type="bit" />
+          <Property Name="fechaRegistro" Type="datetime" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RAIZLOGModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="RAIZLOGEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBMRaizNetMenu" EntityType="RAIZLOGModel.Menu" />
+          <EntitySet Name="TBMRaizNetModulo" EntityType="RAIZLOGModel.Modulo" />
+          <EntitySet Name="TBMRaizNetPubComponente" EntityType="RAIZLOGModel.PubComponente" />
+        </EntityContainer>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="idMenu" />
+          </Key>
+          <Property Name="idMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="displayName" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="formulario" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="componente" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="idMenuPadre" Type="Int32" />
+          <Property Name="estado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreModulo" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="formatoVersion" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="estado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PubComponente">
+          <Key>
+            <PropertyRef Name="idPublicacion" />
+          </Key>
+          <Property Name="idPublicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="componente" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="idModulo" Type="Int32" />
+          <Property Name="version" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="descargaObligatoria" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RAIZLOGModelStoreContainer" CdmEntityContainer="RAIZLOGEntities">
+          <EntitySetMapping Name="TBMRaizNetMenu">
+            <EntityTypeMapping TypeName="RAIZLOGModel.Menu">
+              <MappingFragment StoreEntitySet="TBMRaizNetMenu">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBMRaizNetModulo">
+            <EntityTypeMapping TypeName="RAIZLOGModel.Modulo">
+              <MappingFragment StoreEntitySet="TBMRaizNetModulo">
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="nombreModulo" ColumnName="nombreModulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="formatoVersion" ColumnName="formatoVersion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBMRaizNetPubComponente">
+            <EntityTypeMapping TypeName="RAIZLOGModel.PubComponente">
+              <MappingFragment StoreEntitySet="TBMRaizNetPubComponente">
+                <ScalarProperty Name="idPublicacion" ColumnName="idPublicacion" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="descargaObligatoria" ColumnName="descargaObligatoria" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
