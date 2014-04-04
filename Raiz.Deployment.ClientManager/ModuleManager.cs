@@ -222,7 +222,7 @@ namespace Raiz.Deployment.ClientManager
                 }
             }
             //Revisar si las dependencias del componente se encuentran instaladas en la PC
-            CargarComponenteDomain(componente,"FrmMisSolicitudes");
+            //CargarComponenteDomain(componente,"FrmMisSolicitudes");
             var assy = Assembly.LoadFrom(Path.Combine(_rutaLocal, componente));
             var alreadyLoaded = new Hashtable();
             CargarDependencias(assy, alreadyLoaded,0);
