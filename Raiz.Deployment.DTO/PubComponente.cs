@@ -17,8 +17,9 @@ namespace Raiz.Deployment.DTO
         public int idPublicacion { get; set; }
         public string componente { get; set; }
         public Nullable<int> idModulo { get; set; }
-        public string version { get; set; }
+        public Version version { get; set; }
         public Nullable<bool> descargaObligatoria { get; set; }
         public Nullable<System.DateTime> fechaRegistro { get; set; }
+        public Nullable<byte> nivelUrgencia { get; set; }
     }
 }

@@ -1,13 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Raiz.Deployment.ClientManager
 {
     public class DeploySettings
     {
+        private static bool usuarioAceptoNotificacion = true;
+
+        public DeploySettings()
+        {
+            UsuarioAceptoNotificacion = true;
+        }
+
+        public static Guid IdCliente { get; set; }
+
+        public static bool UsuarioAceptoNotificacion
+        {
+            get { return usuarioAceptoNotificacion; }
+            set { usuarioAceptoNotificacion = value; }
+        }
+
 
         public static string ObtenerRutaServidor()
         {

@@ -17,7 +17,8 @@ namespace Raiz.Deployment.Svc.Lib
     public class DeployService : IDeployService
     {
 
-        private readonly Dictionary<Guid, IDeployNotifyCallback> clients = new Dictionary<Guid, IDeployNotifyCallback>();
+        private readonly Dictionary<Suscritor, IDeployNotifyCallback> clients =
+            new Dictionary<Suscritor, IDeployNotifyCallback>();
 
 
         public List<PubComponente> ConsultarPublicaciones()
@@ -32,17 +33,45 @@ namespace Raiz.Deployment.Svc.Lib
             return obj.ConsultarPublicacionPorComponente(componente);
         }
 
-        Guid IDeployService.Subscribe()
+        public void RegistrarPublicacion(PubComponente publicacion)
+        {
+            var obj = new PublicacionBL();
+            obj.RegistrarPublicacion(publicacion);
+        }
+
+
+        public List<Suscritor> ListarSuscriptores()
+        {
+            var obj = new PublicacionBL();
+            return obj.ListarSuscriptores();
+        }
+
+
+        Guid IDeployService.Subscribe(Suscritor suscrito)
         {
             var callback = OperationContext.Current.GetCallbackChannel<IDeployNotifyCallback>();
 
             var clientId = Guid.NewGuid();
+            suscrito.Id = clientId;
 
             if (callback != null)
             {
                 lock (clients)
                 {
-                    clients.Add(clientId, callback);
+                    //Verificar si el cliente ya existe
+
+                    /*
+                    if (clients.Count(p => p.Key.IP == suscrito.IP) == 0)
+                    {
+                        */
+
+
+                    clients.Add(suscrito, callback);
+                    Singleton.Instance.Suscritores.Add(suscrito);
+                    NotificarAdministradores(clientId, MensajesServidor.USUARIO_CONECTADO);
+
+                    //}
+
                 }
             }
 
@@ -53,19 +82,104 @@ namespace Raiz.Deployment.Svc.Lib
         {
             lock (clients)
             {
-                if (clients.ContainsKey(clientId))
+                var cliente = clients.FirstOrDefault(p => p.Key.Id == clientId);
+                if (cliente.Key != null)
                 {
-                    clients.Remove(clientId);
+                    clients.Remove(cliente.Key);
+                    Singleton.Instance.Suscritores.Remove(cliente.Key);
+                    //Notificar a los adminmistradores
+                    NotificarAdministradores(clientId, MensajesServidor.USUARIO_DESCONECTADO);
+
+                }
+
+            }
+        }
+
+        void IDeployService.Notificar(Guid clientId, List<PubComponente> actualizaciones)
+        {
+
+            //Aca se debe realizar la validación de a quiénes se les debe notificar de acuerdo 
+            //a las actualizaciones. De acuerdo al módulo
+            var objBL = new PublicacionBL();
+            var suscritos = objBL.ListarUsuariosNotificar(actualizaciones);
+            BroadcastMessage(clientId, actualizaciones, suscritos);
+        }
+
+        void IDeployService.NotificarUsuario(Guid idOrigen, Guid idDestino, List<PubComponente> actualizaciones)
+        {
+            var cliente = clients.FirstOrDefault(p => p.Key.Id == idDestino);
+            try
+            {
+                cliente.Value.RecepcionarNotificacionPersonal(actualizaciones);
+            }
+            catch (Exception)
+            {
+                if (cliente.Key != null)
+                {
+                    clients.Remove(cliente.Key);
+                    Singleton.Instance.Suscritores.Remove(cliente.Key);
+                }
+
+            }
+
+        }
+
+        void IDeployService.EnviarMensajeCliente(Guid idOrigen, Guid idDestino, string mensaje, int msje)
+        {
+            var cliente = clients.FirstOrDefault(p => p.Key.Id == idDestino);
+            try
+            {
+                cliente.Value.RecepcionarMensajePersonal(mensaje, msje);
+            }
+            catch (Exception)
+            {
+                if (cliente.Key != null)
+                {
+                    clients.Remove(cliente.Key);
+                    Singleton.Instance.Suscritores.Remove(cliente.Key);
                 }
             }
         }
 
-        void IDeployService.Notificar(Guid clientId,PubComponente actualizacion)
+        void IDeployService.ForzarCierreAplicacionCliente(Guid idOrigen, Guid idDestino, string mensaje)
         {
-            BroadcastMessage(clientId, actualizacion);
-        }
+            var cliente = clients.FirstOrDefault(p => p.Key.Id == idDestino);
+            try
+            {
+                cliente.Value.ForzarCierreAplicacion(mensaje);
+            }
+            catch (Exception)
+            {
+                if (cliente.Key != null)
+                {
+                    //clients.Remove(cliente.Key);
+                    Singleton.Instance.Suscritores.Remove(cliente.Key);
+                }
+            }
 
-        private void BroadcastMessage(Guid clientId, PubComponente actualizacion)
+        }
+        
+        List<DescargaComponente> IDeployService.ListarVersionesInstaladasCliente(Guid idOrigen, Guid idDestino)
+        {
+            var cliente = clients.FirstOrDefault(p => p.Key.Id == idDestino);
+            var result = new List<DescargaComponente>();
+            try
+            {
+                result=cliente.Value.VersionesInstaladasCliente();
+            }
+            catch (Exception)
+            {
+                if (cliente.Key != null)
+                {
+                    //clients.Remove(cliente.Key);
+                    Singleton.Instance.Suscritores.Remove(cliente.Key);
+                }
+            }
+            return result;
+        }
+         
+
+        private void BroadcastMessage(Guid clientId,List<PubComponente> actualizaciones,List<Suscritor> Suscritos)
         {
             // Call each client's callback method
             ThreadPool.QueueUserWorkItem
@@ -75,23 +189,71 @@ namespace Raiz.Deployment.Svc.Lib
                     lock (clients)
                     {
                         var disconnectedClientGuids = new List<Guid>();
-
-                        foreach (KeyValuePair<Guid, IDeployNotifyCallback> client in clients)
+                        foreach (KeyValuePair<Suscritor, IDeployNotifyCallback> client in clients)
                         {
+                            if (!Suscritos.Exists(p => p == client.Key)) continue;
                             try
                             {
-                                client.Value.RecepcionarNotificacion(actualizacion);
+                                client.Value.RecepcionarNotificacionMasiva(actualizaciones);
                             }
                             catch (Exception)
                             {
-                                disconnectedClientGuids.Add(client.Key);
+                                disconnectedClientGuids.Add(client.Key.Id);
                             }
                         }
 
+
                         foreach (Guid clientGuid in disconnectedClientGuids)
                         {
-                            clients.Remove(clientGuid);
+                            var cliente = clients.FirstOrDefault(p => p.Key.Id == clientGuid);
+                            if (cliente.Key != null)
+                            {   clients.Remove(cliente.Key);
+                                Singleton.Instance.Suscritores.Remove(cliente.Key);
+                            }
                         }
+
+
+                    }
+                }
+            );
+        }
+
+
+        private void NotificarAdministradores(Guid clientId,int codigo)
+        {
+            // Call each client's callback method
+            ThreadPool.QueueUserWorkItem
+            (
+                delegate
+                {
+                    lock (clients)
+                    {
+                        var disconnectedClientGuids = new List<Guid>();
+                        foreach (KeyValuePair<Suscritor, IDeployNotifyCallback> client in clients)
+                        {
+                            try
+                            {
+                                if (client.Key.TipoUsuario != 1) continue;
+                                client.Value.RecepcionarMensajePersonal(string.Empty,codigo);
+                            }
+                            catch (Exception)
+                            {
+                                disconnectedClientGuids.Add(client.Key.Id);
+                            }
+                        }
+
+
+                        foreach (Guid clientGuid in disconnectedClientGuids)
+                        {
+                            var cliente = clients.FirstOrDefault(p => p.Key.Id == clientGuid);
+                            if (cliente.Key != null)
+                            {
+                                clients.Remove(cliente.Key);
+                                Singleton.Instance.Suscritores.Remove(cliente.Key);
+                            }
+                        }
+
+
                     }
                 }
             );

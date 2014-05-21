@@ -18,13 +18,19 @@ namespace Raiz.Deployment.Svc.Lib
         [OperationContract]
         PubComponente ConsultarPublicacionPorComponente(string componente);
 
+        [OperationContract]
+        void RegistrarPublicacion(PubComponente publicacion);
+
+        [OperationContract]
+        List<Suscritor> ListarSuscriptores();
+
 
         /// <summary>
         /// Subcribes a client for any message broadcast.
         /// </summary>
         /// <returns>An id that will identify a client.</returns>
         [OperationContract]
-        Guid Subscribe();
+        Guid Subscribe(Suscritor suscrito);
 
 
         /// <summary>
@@ -41,16 +47,50 @@ namespace Raiz.Deployment.Svc.Lib
         /// <param name="clientId">The client id.</param>
         /// <param name="message">The message to be broadcasted.</param>
         [OperationContract]
-        void Notificar(Guid clientId, PubComponente actualizacion);
+        void Notificar(Guid clientId,List<PubComponente> actualizaciones);
 
+        /// <summary>
+        /// Broadcasts a message to other connected clients.
+        /// </summary>
+        /// <param name="clientId">The client id.</param>
+        /// <param name="message">The message to be broadcasted.</param>
+        [OperationContract]
+        void NotificarUsuario(Guid idOrigen, Guid idDestino, List<PubComponente> actualizaciones);
+
+        
+        [OperationContract]
+        void EnviarMensajeCliente(Guid idOrigen, Guid idDestino, string mensaje, int msje);
+
+        [OperationContract]
+        void ForzarCierreAplicacionCliente(Guid idOrigen, Guid idDestino, string mensaje);
+
+        
+        [OperationContract]
+        List<DescargaComponente> ListarVersionesInstaladasCliente(Guid idOrigen, Guid idDestino);
+        
     }
 
 
     public interface IDeployNotifyCallback
     {
         [OperationContract(IsOneWay = true)]
-        void RecepcionarNotificacion(PubComponente actualizacion);
+        void RecepcionarNotificacionMasiva(List<PubComponente> actualizaciones);
+
+        [OperationContract(IsOneWay = true)]
+        void RecepcionarNotificacionPersonal(List<PubComponente> actualizaciones);
+
+        [OperationContract(IsOneWay = true)]
+        void RecepcionarMensajePersonal(string mensaje,int msje);
+
+        [OperationContract(IsOneWay = true)]
+        void ForzarCierreAplicacion(string mensaje);
+
+        [OperationContract(IsOneWay = false)]
+        List<DescargaComponente> VersionesInstaladasCliente();
+
     }
+
+
 
 
 }

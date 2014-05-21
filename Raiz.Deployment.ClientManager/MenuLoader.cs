@@ -121,14 +121,23 @@ namespace Raiz.Deployment.ClientManager
         {
             var moduleManager = new ModuleManager();
             var rutaForm = ((ToolStripMenuItem) sender).Name;
-            var elements=rutaForm.Split('/');
+            var elements = rutaForm.Split('/');
             var componente = elements[0];
             var formName = elements[1];
 
+            //Antes de cargar el componente verificar si éste  no se encuentra
+            //en la lista de componentes con actualización forzosa
+            if (UpdateManager.ComponentesPendientesUpdate.Contains(componente))
+            {
+                //No abrir ningún formulario
+                MessageBox.Show("No se podrá abrir ningún formulario de este módulo, pues existe una actualización pendiente. Cierre la aplicación y vuelva a ingresar.");
+                return;
+            }
+            
             var assembly = moduleManager.CargarComponente(componente);
             if (assembly == null)
             {
-                MessageBox.Show("No se encuentra instalado el componente requerido en este equipo.");
+                //MessageBox.Show("No se encuentra instalado el componente requerido en este equipo.");
                 return;
             }
 
@@ -181,11 +190,23 @@ namespace Raiz.Deployment.ClientManager
                 throw ex;
 
             }
-            
-
-           
             //---------------------------------------
         }
+
+        public void BloquearFormulariosPorComponente(string componente)
+        {
+            foreach (var form in MdiContainer.MdiChildren)
+            {
+                if (form != MdiContainer.ActiveMdiChild)
+                {
+                    form.Enabled = false;
+                }
+            }
+
+        }
+
+
+
 
         public void CrearMenuInfo()
         {

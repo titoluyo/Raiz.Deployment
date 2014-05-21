@@ -17,7 +17,7 @@ namespace Raiz.Main.Test
         public Form1()
         {
             InitializeComponent();
-            _notifier.Conectar();
+            _notifier.Conectar("");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace Raiz.Main.Test
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            _notifier.Notificar(new PubComponente() { componente = "Raiz.Modulo1.dll", version = "1.0.2" });
+            //_notifier.Notificar(new PubComponente() { componente = "Raiz.Modulo1.dll", version = "1.0.2" });
 
         }
     }

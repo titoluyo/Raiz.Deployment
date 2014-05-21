@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Deployment.Svc.Lib", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Deployment.Svc.Cliente", "Raiz.Deployment.Svc.Cliente\Raiz.Deployment.Svc.Cliente.csproj", "{BD59BB55-B1B9-4BC2-B276-C2385653A0F2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cliente", "Cliente", "{279142E5-45C9-4B38-978E-9EE83F667A5F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client-Side", "Client-Side", "{279142E5-45C9-4B38-978E-9EE83F667A5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Main.Test", "Raiz.Main.Test\Raiz.Main.Test.csproj", "{C9CA9BA6-432B-4FDC-B563-4FB2B57FE3B5}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -35,6 +35,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Main.Dev", "..\..\RaizNet\Raiz.Main.Dev\Raiz.Main.Dev.csproj", "{754C5A76-F32B-4FD4-90A5-BF298321EBC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Modulo1", "Raiz.Modulo1\Raiz.Modulo1.csproj", "{07B71EDA-688A-4375-87E3-33F14DE66541}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server-Side", "Server-Side", "{574B661C-B8B2-485E-AE5D-C1446A7EE40E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raiz.Deployment.ServerManager", "Raiz.Deployment.ServerManager\Raiz.Deployment.ServerManager.csproj", "{8049E3D2-EEE8-4E2B-BA64-592DADEFA169}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +89,10 @@ Global
 		{07B71EDA-688A-4375-87E3-33F14DE66541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B71EDA-688A-4375-87E3-33F14DE66541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B71EDA-688A-4375-87E3-33F14DE66541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8049E3D2-EEE8-4E2B-BA64-592DADEFA169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8049E3D2-EEE8-4E2B-BA64-592DADEFA169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8049E3D2-EEE8-4E2B-BA64-592DADEFA169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8049E3D2-EEE8-4E2B-BA64-592DADEFA169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,5 +107,6 @@ Global
 		{394A8B6C-49AB-49E7-ABEE-88CE59247AAC} = {279142E5-45C9-4B38-978E-9EE83F667A5F}
 		{F4103B92-FC80-4528-A0BD-93DD7FC493F2} = {279142E5-45C9-4B38-978E-9EE83F667A5F}
 		{754C5A76-F32B-4FD4-90A5-BF298321EBC1} = {279142E5-45C9-4B38-978E-9EE83F667A5F}
+		{8049E3D2-EEE8-4E2B-BA64-592DADEFA169} = {574B661C-B8B2-485E-AE5D-C1446A7EE40E}
 	EndGlobalSection
 EndGlobal

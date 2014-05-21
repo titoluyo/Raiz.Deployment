@@ -25,6 +25,10 @@ namespace Raiz.Deployment.ClientManager
 
         private LogManager _logger = new LogManager();
         private ModuleManager _downloader=new ModuleManager();
+        private WebClient _cliente=new WebClient();
+
+        public string Mensaje { get; set; }
+
 
 
         public ProgressBar ProgressionBar
@@ -54,6 +58,7 @@ namespace Raiz.Deployment.ClientManager
 
         }
 
+        public bool DescargaExitosa { get; set; }
 
         public frmDownload()
         {
@@ -121,17 +126,15 @@ namespace Raiz.Deployment.ClientManager
 
             if (!_downloader.ValidaComponenteDescargar(actualizacion)) return;
             
-           
-
-            using (var client = new WebClient())
+            using (_cliente = new WebClient())
             {
 
-                client.DownloadFileCompleted += Completed;
-                client.DownloadProgressChanged += ProgressChanged;
+                _cliente.DownloadFileCompleted += Completed;
+                _cliente.DownloadProgressChanged += ProgressChanged;
+                
                 try
                 {
                     //Inicia la descarga
-                    
                     var descarga = new DescargaComponente();
                     descarga = _downloader.DescargaNuevoComponente(actualizacion, descarga);
                     descarga.estado = DescargaComponente.EstadoDescarga.Iniciado;
@@ -142,7 +145,7 @@ namespace Raiz.Deployment.ClientManager
 
                     _sw.Start();
                     //client.DownloadFile(rutaWeb, rutaLocal);
-                    client.DownloadFileAsync(urlRutaWeb, rutaLocal);
+                    _cliente.DownloadFileAsync(urlRutaWeb, rutaLocal);
                     //Finaliza la descarga
                     descarga.estado = DescargaComponente.EstadoDescarga.Finalizado;
                     _logger.RegistrarDescarga(descarga);
@@ -159,8 +162,32 @@ namespace Raiz.Deployment.ClientManager
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-            
+            DesbloquearDescarga();
             DescargarActualizacion(Actualizacion);
+        }
+
+        private void frmDownload_Load(object sender, EventArgs e)
+        {
+            this.lblMsje.Text = Mensaje;
+        }
+
+        private void DesbloquearDescarga()
+        {
+            this.progressBar1.Enabled = true;
+            this.lblPorcentaje.Enabled = true;
+            this.lblDescarga.Enabled = true;
+            this.btnCancel.Enabled = true;
+            this.lblVelocidad.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            _cliente.CancelAsync();
         }
 
     }

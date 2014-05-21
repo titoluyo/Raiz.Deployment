@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfPubComponente">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PubComponente" nillable="true" type="tns:PubComponente" />
@@ -13,8 +15,54 @@
       <xs:element minOccurs="0" name="fechaRegistro" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="idModulo" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="idPublicacion" type="xs:int" />
-      <xs:element minOccurs="0" name="version" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nivelUrgencia" nillable="true" type="xs:unsignedByte" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="version" nillable="true" type="q1:Version" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PubComponente" nillable="true" type="tns:PubComponente" />
+  <xs:complexType name="ArrayOfSuscritor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Suscritor" nillable="true" type="tns:Suscritor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSuscritor" nillable="true" type="tns:ArrayOfSuscritor" />
+  <xs:complexType name="Suscritor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FechaIngreso" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaSalida" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Notificaciones" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Suscritor" nillable="true" type="tns:Suscritor" />
+  <xs:complexType name="ArrayOfDescargaComponente">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DescargaComponente" nillable="true" type="tns:DescargaComponente" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDescargaComponente" nillable="true" type="tns:ArrayOfDescargaComponente" />
+  <xs:complexType name="DescargaComponente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Componente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaDescarga" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Modulo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descargaObligatoria" type="xs:boolean" />
+      <xs:element minOccurs="0" name="estado" type="tns:DescargaComponente.EstadoDescarga" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="version" nillable="true" type="q2:Version" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DescargaComponente" nillable="true" type="tns:DescargaComponente" />
+  <xs:simpleType name="DescargaComponente.EstadoDescarga">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pendiente" />
+      <xs:enumeration value="Iniciado" />
+      <xs:enumeration value="Finalizado" />
+      <xs:enumeration value="Interrumpido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DescargaComponente.EstadoDescarga" nillable="true" type="tns:DescargaComponente.EstadoDescarga" />
 </xs:schema>

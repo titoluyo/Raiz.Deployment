@@ -30,7 +30,7 @@ namespace Raiz.Deployment.ClientManager
             foreach (var componente in componentes)
             {
                var current= versiones.FindLast(p => p.Componente == componente);
-                lbVersiones.Items.Add(string.Format("{0} - {1}, descargado el {2}", componente, current.version, current.FechaDescarga));
+                lbVersiones.Items.Add(string.Format("{0} - {1}, descargado el {2}", componente,current.version , current.FechaDescarga));
             }
 
         }

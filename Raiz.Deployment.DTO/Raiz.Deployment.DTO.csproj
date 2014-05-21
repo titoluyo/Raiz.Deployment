@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DescargaComponente.cs" />
     <Compile Include="Menu.cs">
       <DependentUpon>RaizNet.tt</DependentUpon>
     </Compile>
@@ -62,6 +62,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RaizNet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Suscritores.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="keypair.snk" />

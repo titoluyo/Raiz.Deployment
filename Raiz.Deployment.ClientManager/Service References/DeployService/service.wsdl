@@ -15,6 +15,7 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDeployService_ConsultarPublicaciones_InputMessage">
@@ -28,6 +29,18 @@
   </wsdl:message>
   <wsdl:message name="IDeployService_ConsultarPublicacionPorComponente_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPublicacionPorComponenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_RegistrarPublicacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPublicacion" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_RegistrarPublicacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPublicacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ListarSuscriptores_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSuscriptores" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ListarSuscriptores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSuscriptoresResponse" />
   </wsdl:message>
   <wsdl:message name="IDeployService_Subscribe_InputMessage">
     <wsdl:part name="parameters" element="tns:Subscribe" />
@@ -44,8 +57,47 @@
   <wsdl:message name="IDeployService_Notificar_OutputMessage">
     <wsdl:part name="parameters" element="tns:NotificarResponse" />
   </wsdl:message>
-  <wsdl:message name="IDeployService_RecepcionarNotificacion_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:RecepcionarNotificacion" />
+  <wsdl:message name="IDeployService_NotificarUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotificarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_NotificarUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotificarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_EnviarMensajeCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMensajeCliente" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_EnviarMensajeCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMensajeClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ForzarCierreAplicacionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForzarCierreAplicacionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ForzarCierreAplicacionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForzarCierreAplicacionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ListarVersionesInstaladasCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarVersionesInstaladasCliente" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ListarVersionesInstaladasCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarVersionesInstaladasClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_RecepcionarNotificacionMasiva_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RecepcionarNotificacionMasiva" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_RecepcionarNotificacionPersonal_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RecepcionarNotificacionPersonal" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_RecepcionarMensajePersonal_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RecepcionarMensajePersonal" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ForzarCierreAplicacion_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ForzarCierreAplicacion" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_VersionesInstaladasCliente_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:VersionesInstaladasCliente" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_VersionesInstaladasCliente_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:VersionesInstaladasClienteResponse" />
   </wsdl:message>
   <wsdl:portType name="IDeployService">
     <wsdl:operation name="ConsultarPublicaciones">
@@ -55,6 +107,14 @@
     <wsdl:operation name="ConsultarPublicacionPorComponente">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ConsultarPublicacionPorComponente" message="tns:IDeployService_ConsultarPublicacionPorComponente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ConsultarPublicacionPorComponenteResponse" message="tns:IDeployService_ConsultarPublicacionPorComponente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPublicacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/RegistrarPublicacion" message="tns:IDeployService_RegistrarPublicacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RegistrarPublicacionResponse" message="tns:IDeployService_RegistrarPublicacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSuscriptores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ListarSuscriptores" message="tns:IDeployService_ListarSuscriptores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ListarSuscriptoresResponse" message="tns:IDeployService_ListarSuscriptores_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Subscribe">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/Subscribe" message="tns:IDeployService_Subscribe_InputMessage" />
@@ -67,8 +127,37 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/Notificar" message="tns:IDeployService_Notificar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/NotificarResponse" message="tns:IDeployService_Notificar_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RecepcionarNotificacion">
-      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RecepcionarNotificacion" message="tns:IDeployService_RecepcionarNotificacion_OutputCallbackMessage" />
+    <wsdl:operation name="NotificarUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/NotificarUsuario" message="tns:IDeployService_NotificarUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/NotificarUsuarioResponse" message="tns:IDeployService_NotificarUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMensajeCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/EnviarMensajeCliente" message="tns:IDeployService_EnviarMensajeCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/EnviarMensajeClienteResponse" message="tns:IDeployService_EnviarMensajeCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForzarCierreAplicacionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ForzarCierreAplicacionCliente" message="tns:IDeployService_ForzarCierreAplicacionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ForzarCierreAplicacionClienteResponse" message="tns:IDeployService_ForzarCierreAplicacionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarVersionesInstaladasCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ListarVersionesInstaladasCliente" message="tns:IDeployService_ListarVersionesInstaladasCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ListarVersionesInstaladasClienteResponse" message="tns:IDeployService_ListarVersionesInstaladasCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarNotificacionMasiva">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RecepcionarNotificacionMasiva" message="tns:IDeployService_RecepcionarNotificacionMasiva_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarNotificacionPersonal">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RecepcionarNotificacionPersonal" message="tns:IDeployService_RecepcionarNotificacionPersonal_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarMensajePersonal">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RecepcionarMensajePersonal" message="tns:IDeployService_RecepcionarMensajePersonal_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForzarCierreAplicacion">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ForzarCierreAplicacion" message="tns:IDeployService_ForzarCierreAplicacion_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VersionesInstaladasCliente">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/VersionesInstaladasCliente" message="tns:IDeployService_VersionesInstaladasCliente_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/VersionesInstaladasClienteResponse" message="tns:IDeployService_VersionesInstaladasCliente_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IDeployService" type="tns:IDeployService">
@@ -86,6 +175,24 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarPublicacionPorComponente">
       <soap12:operation soapAction="http://tempuri.org/IDeployService/ConsultarPublicacionPorComponente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPublicacion">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/RegistrarPublicacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSuscriptores">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/ListarSuscriptores" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -117,8 +224,71 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RecepcionarNotificacion">
-      <soap12:operation soapAction="http://tempuri.org/IDeployService/RecepcionarNotificacion" style="document" />
+    <wsdl:operation name="NotificarUsuario">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/NotificarUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMensajeCliente">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/EnviarMensajeCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForzarCierreAplicacionCliente">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/ForzarCierreAplicacionCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarVersionesInstaladasCliente">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/ListarVersionesInstaladasCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarNotificacionMasiva">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/RecepcionarNotificacionMasiva" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarNotificacionPersonal">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/RecepcionarNotificacionPersonal" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecepcionarMensajePersonal">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/RecepcionarMensajePersonal" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForzarCierreAplicacion">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/ForzarCierreAplicacion" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VersionesInstaladasCliente">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/VersionesInstaladasCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

@@ -15,79 +15,53 @@ namespace Raiz.Deployment.BL
 
         public PublicacionBL()
         {
-            var componente = new PubComponente();
-            componente.idModulo = 1;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = true;
-            componente.componente = "Raiz.Modulo1.dll";
-            componente.fechaRegistro = DateTime.Now.AddHours(-2);
-
-            _listaComponentes.Add(componente);
             
-            componente=new PubComponente();
-            componente.idModulo = 2;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = true;
-            componente.componente = "Raiz.Modulo2.dll";
-            componente.fechaRegistro = DateTime.Now;
-
-            _listaComponentes.Add(componente);
-
-
-            componente = new PubComponente();
-            componente.idModulo = 3;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = false;
-            componente.componente = "Raiz.Reniec.Cliente.dll";
-            componente.fechaRegistro = DateTime.Now;
-            _listaComponentes.Add(componente);
-
-            componente = new PubComponente();
-            componente.idModulo = 8;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = false;
-            componente.componente = "Raiz.Reniec.BE.dll";
-            componente.fechaRegistro = DateTime.Now;
-            _listaComponentes.Add(componente);
-
-
-
-            componente = new PubComponente();
-            componente.idModulo = 4;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = false;
-            componente.componente = "Raiz.Common.CL.dll";
-            componente.fechaRegistro = DateTime.Now;
-            _listaComponentes.Add(componente);
-
-            componente = new PubComponente();
-            componente.idModulo = 5;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = false;
-            componente.componente = "Raiz.MGA.Cliente.dll";
-            componente.fechaRegistro = DateTime.Now;
-            _listaComponentes.Add(componente);
-
-            componente = new PubComponente();
-            componente.idModulo = 6;
-            componente.version = "1.0.1";
-            componente.descargaObligatoria = false;
-            componente.componente = "Raiz.MGA.DTO.dll";
-            componente.fechaRegistro = DateTime.Now;
-            _listaComponentes.Add(componente);
-
             
         }
 
         public List<PubComponente> ConsultarPublicaciones()
         {
-            return _listaComponentes;
+            return Singleton.Instance.ListaPublicaciones;
+            //var publicaciones = Singleton.Instance.ListaPublicaciones;
         }
 
         public PubComponente ConsultarPublicacionPorComponente(string componente)
         {
             return _listaComponentes.Find(p => p.componente == componente);
         }
+
+        public void RegistrarPublicacion(PubComponente publicacion)
+        {
+            Singleton.Instance.ListaPublicaciones.RemoveAll(p => p.componente == publicacion.componente);
+            Singleton.Instance.ListaPublicaciones.Add(publicacion);
+        }
+
+        public List<Suscritor> ListarSuscriptores()
+        {
+            return Singleton.Instance.Suscritores;
+        }
+
+        public List<Suscritor> ListarUsuariosNotificar(List<PubComponente> publicaciones )
+        {
+            var usuarios = Singleton.Instance.Suscritores;
+            var objAut = new AutorizacionBL();
+            var notificados = new List<Suscritor>();
+            foreach (var usuario  in usuarios)
+            {
+                var compons = objAut.ListarComponentesUsoPorUsuario(usuario.Usuario);
+                if (publicaciones.Exists(p => compons.Any(t => p.componente.Contains(t))))
+                {
+                    notificados.Add(usuario);
+                }
+            }
+            return notificados;
+        }
+
+        public void IncrementarNotificacionesSuscrito(Guid id)
+        {
+            Singleton.Instance.Suscritores.Find(p => p.Id == id).Notificaciones += 1;
+        }
+
 
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RAIZLOGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="RAIZLOGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="RAIZLOGModelStoreContainer">
           <EntitySet Name="TBMRaizNetMenu" EntityType="RAIZLOGModel.Store.TBMRaizNetMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBMRaizNetModulo" EntityType="RAIZLOGModel.Store.TBMRaizNetModulo" store:Type="Tables" Schema="dbo" />
@@ -42,9 +42,9 @@
           <Property Name="version" Type="varchar" MaxLength="128" />
           <Property Name="descargaObligatoria" Type="bit" />
           <Property Name="fechaRegistro" Type="datetime" />
+          <Property Name="nivelUrgencia" Type="tinyint" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RAIZLOGModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -85,6 +85,7 @@
           <Property Name="version" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
           <Property Name="descargaObligatoria" Type="Boolean" />
           <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <Property Type="Byte" Name="nivelUrgencia" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -119,6 +120,7 @@
           <EntitySetMapping Name="TBMRaizNetPubComponente">
             <EntityTypeMapping TypeName="RAIZLOGModel.PubComponente">
               <MappingFragment StoreEntitySet="TBMRaizNetPubComponente">
+                <ScalarProperty Name="nivelUrgencia" ColumnName="nivelUrgencia" />
                 <ScalarProperty Name="idPublicacion" ColumnName="idPublicacion" />
                 <ScalarProperty Name="componente" ColumnName="componente" />
                 <ScalarProperty Name="idModulo" ColumnName="idModulo" />

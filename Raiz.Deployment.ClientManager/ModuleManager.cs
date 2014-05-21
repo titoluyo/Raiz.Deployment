@@ -11,7 +11,9 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using Raiz.Deployment.ClientManager.DeployService;
 using Raiz.Deployment.DTO;
-using PubComponente = Raiz.Deployment.DTO.PubComponente;
+using Version = System.Version;
+
+//using PubComponente = Raiz.Deployment.DTO.PubComponente;
 
 
 namespace Raiz.Deployment.ClientManager
@@ -43,7 +45,7 @@ namespace Raiz.Deployment.ClientManager
                 descarga = new DescargaComponente();
                 descarga.Id = Guid.NewGuid();
                 descarga.Componente = componente.componente;
-                descarga.version = string.Format("[{0}]", componente.version);
+                descarga.version =  componente.version;
                 descarga.FechaDescarga = DateTime.Now;
                 descarga.Modulo = componente.idModulo.ToString();
                 descarga.descargaObligatoria = (componente.descargaObligatoria ?? false);
@@ -51,7 +53,7 @@ namespace Raiz.Deployment.ClientManager
             return descarga;
         }
 
-        private void CrearCopiaLocalComponente(string componente,string version)
+        private void CrearCopiaLocalComponente(string componente,Version version)
         {
             var rutaLocal = Path.Combine(_rutaLocal, componente);
             //Copiar la dll actual 
@@ -212,17 +214,17 @@ namespace Raiz.Deployment.ClientManager
                     //Verificar si esta disponible la descarga
                     if (!ValidaComponenteDescargar(componenteActualizado)) return null;
                     //Se consulta al usuario si desea realizar la descarga
-                    if (MessageBox.Show(String.Format("¿Hay una versión disponible del componente {0}, versión {1}, desea instalarla? ", componenteActualizado.componente, componenteActualizado.version)
-                         , "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        var frm = new frmDownload();
-                        frm.Actualizacion = componenteActualizado;
-                        frm.ShowDialog();
-                    }
+
+                    var frm = new frmDownload();
+                    frm.Mensaje = String.Format("Hay una nueva versión del componente {0}, la versión es la siguiente:{1}", componenteActualizado.componente, componenteActualizado.version);
+                    frm.Actualizacion = componenteActualizado;
+                    frm.ShowDialog();
+                    if (!frm.DescargaExitosa) return null;
+
                 }
             }
             //Revisar si las dependencias del componente se encuentran instaladas en la PC
-            CargarComponenteDomain(componente,"FrmMisSolicitudes");
+            //CargarComponenteDomain(componente,"FrmMisSolicitudes");
             var assy = Assembly.LoadFrom(Path.Combine(_rutaLocal, componente));
             var alreadyLoaded = new Hashtable();
             CargarDependencias(assy, alreadyLoaded,0);
@@ -336,6 +338,7 @@ namespace Raiz.Deployment.ClientManager
 
     }
 
+    /*
     public class DescargaComponente
     {
 
@@ -350,11 +353,12 @@ namespace Raiz.Deployment.ClientManager
         public string Componente { get; set; }
         public DateTime FechaDescarga { get; set; }
         public string Modulo { get; set; }
-        public string version { get; set; }
+        public Version version { get; set; }
         public bool descargaObligatoria { get; set; }
         public EstadoDescarga estado { get; set; }
     }
 
+    */
     public class Componente
     {
         public string Nombre { get; set; }

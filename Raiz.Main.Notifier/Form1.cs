@@ -19,7 +19,7 @@ namespace Raiz.Main.Notifier
         public Form1()
         {
             InitializeComponent();
-            _notifier.Conectar();
+            _notifier.Conectar("");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace Raiz.Main.Notifier
         private void btnNotify_Click(object sender, EventArgs e)
         {
             
-            _notifier.Notificar(new PubComponente(){ componente = "Raiz.Modulo2.dll", version = "1.0.2"});
+            //_notifier.Notificar(new PubComponente(){ componente = "Raiz.Modulo2.dll", version = "1.0.2"});
         }
         
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
