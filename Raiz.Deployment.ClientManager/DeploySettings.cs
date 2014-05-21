@@ -23,13 +23,14 @@ namespace Raiz.Deployment.ClientManager
 
         public static string ObtenerRutaServidor()
         {
-            return "http://192.168.105.145/RaizNet/Modulos/";
+            return "http://192.168.74.1/RaizNet/Modulos/";
         }
 
         public static string ObtenerRutaLocal()
         {
             string _rutaInstalacion = "RaizNetTest";
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), _rutaInstalacion);
+            var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), _rutaInstalacion);
+            return ruta;
 
         }
 

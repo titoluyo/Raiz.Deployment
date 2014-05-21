@@ -12,7 +12,7 @@
     <AssemblyName>RaizNet</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Keys\keypair.snk</AssemblyOriginatorKeyFile>
     <ApplicationIcon>LogoRaiz.ico</ApplicationIcon>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -27,7 +27,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
-    <PublishUrl>http://localhost/RaizNet/</PublishUrl>
+    <PublishUrl>http://localhost/RaizNetDeploy/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -37,10 +37,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://192.168.105.148/RaizNetDeploy/</InstallUrl>
+    <InstallUrl>http://192.168.74.1/RaizNetDeploy/</InstallUrl>
     <ProductName>Raiz Net</ProductName>
     <PublisherName>Edpyme Raiz Peru S.A.</PublisherName>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>2.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -194,11 +194,11 @@
     <Content Include="LogoRaiz.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
+    <ProjectReference Include="..\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
       <Project>{f4103b92-fc80-4528-a0bd-93dd7fc493f2}</Project>
       <Name>Raiz.Deployment.ClientManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
+    <ProjectReference Include="..\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
       <Project>{28277593-b5f7-41be-9b15-82ea2a98977c}</Project>
       <Name>Raiz.Deployment.DTO</Name>
     </ProjectReference>

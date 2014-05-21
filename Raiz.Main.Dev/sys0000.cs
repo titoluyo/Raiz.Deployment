@@ -23,7 +23,7 @@ namespace Raiz.Main
             string u =txtUsuario.Text;
             string p=txtClave.Text;
 
-            string strToken = AutenticacionCL.Autentica(u, p);
+            string strToken = ""; //AutenticacionCL.Autentica(u, p);
             if (strToken == "")
             {
                 this.Close();

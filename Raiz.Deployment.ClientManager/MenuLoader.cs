@@ -178,7 +178,7 @@ namespace Raiz.Deployment.ClientManager
             catch (TargetInvocationException ex)
             {
                 MessageBox.Show(ex.InnerException.Message);
-                throw ex;
+                //throw ex;
 
             }
             catch (FileNotFoundException ex)
