@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Raiz.Common.CL;
 
@@ -10,7 +11,10 @@ namespace Raiz.Main
         {
             InitializeComponent();
             this.Icon = Raiz.Common.CL.Properties.Resources.LogoRaiz;
+            //this.panel1.BackColor = Color.FromArgb(50, 0, 0, 0);
+            this.pictureBox1.BackColor = Color.FromArgb(50, 0, 0, 0);
         }
+        
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -23,7 +27,7 @@ namespace Raiz.Main
             string u =txtUsuario.Text;
             string p=txtClave.Text;
 
-            string strToken = ""; //AutenticacionCL.Autentica(u, p);
+            string strToken = AutenticacionCL.Autentica(u, p);
             if (strToken == "")
             {
                 this.Close();

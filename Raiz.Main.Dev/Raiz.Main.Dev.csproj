@@ -12,7 +12,7 @@
     <AssemblyName>RaizNet</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Keys\keypair.snk</AssemblyOriginatorKeyFile>
     <ApplicationIcon>LogoRaiz.ico</ApplicationIcon>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -37,10 +37,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://192.168.74.1/RaizNetDeploy/</InstallUrl>
+    <InstallUrl>http://192.168.105.148/RaizNetDeploy/</InstallUrl>
     <ProductName>Raiz Net</ProductName>
     <PublisherName>Edpyme Raiz Peru S.A.</PublisherName>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>2.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -171,34 +171,36 @@
   <ItemGroup>
     <PublishFile Include="ADODB">
       <Visible>False</Visible>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Raiz.Reniec.BE">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LogoRaiz.ico" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\Red-Background-Wallpaper-640x400.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
+    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
       <Project>{f4103b92-fc80-4528-a0bd-93dd7fc493f2}</Project>
       <Name>Raiz.Deployment.ClientManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
+    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
       <Project>{28277593-b5f7-41be-9b15-82ea2a98977c}</Project>
       <Name>Raiz.Deployment.DTO</Name>
     </ProjectReference>

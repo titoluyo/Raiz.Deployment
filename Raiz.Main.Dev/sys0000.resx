@@ -117,26 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnSalir.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        Qk32AAAAAAAAAHYAAAAoAAAAEAAAABAAAAABAAQAAAAAAAAAAADEDgAAxA4AABAAAAAQAAAAAAAA/wAA
-        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD//////4iI
-        iIiIiIiIiIiIiIiIiIiIhIiAiIiAiIiESICIAAiIiEREiACICIiERERIgIAAiERERIgAiIgIRIRIgAAI
-        iAhIhIiAAIiIgEiIiIAAiIAISIiIgAAAiAiEiIiAAAAAgIiIiIgAAAAAiIiIiIAAAIiIiIiIiIiIiIiI
-        iIiIiIiI
-</value>
-  </data>
-  <data name="btnAceptar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        Qk32AAAAAAAAAHYAAAAoAAAAEAAAABAAAAABAAQAAAAAAAAAAADEDgAAxA4AABAAAAAQAAAAAAAA/wAA
-        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD//////4iI
-        iIiIiIiIiIiIiIiBiIiIiIiIiBF4iAiIiAiBERiICIAAiBEYEYiACICIgYiBGIgIAAiIiIgRgAiIgIiI
-        iIEAAIiAiIiIiAAIiIgIiIiIAAiIAIiIiIgAAAiAiIiIiAAAAAgIiIiIgAAAAAiIiIiIAAAIiIiIiIiI
-        iIiIiIiI
-</value>
-  </data>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

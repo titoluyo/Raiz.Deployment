@@ -12,16 +12,17 @@ namespace Raiz.Main
 {
 	public partial class frmMain : Form
 	{
-		private readonly List<FormBase> _frmHijos = new List<FormBase>();
+		//private readonly List<FormBase> _frmHijos = new List<FormBase>();
         private NotificacionManager _notifier = new NotificacionManager();
         
 
 		string usrName = string.Empty;
 		public frmMain()
 		{
+            
 			InitializeComponent();
 			this.Icon = Raiz.Common.CL.Properties.Resources.LogoRaiz;
-            _notifier.Conectar();
+            
 		}
 		
 		private void frmMain_Load(object sender, EventArgs e)
@@ -35,7 +36,9 @@ namespace Raiz.Main
 				//this.Text += " - " + Environment.Version.ToString();
 			}
             
-            Autentica();
+            if(!Autentica())this.Close();
+            //this.Show();
+            Conectar();
             DeployInit();
             
 	    }
@@ -61,15 +64,20 @@ namespace Raiz.Main
 			Singleton.Instance.ResetFull();
 			Autentica();
 		}
-		private void Autentica()
+		private bool Autentica()
 		{
 			
 			sys0000 f = new sys0000();
 			f.ShowDialog();
-			if (Singleton.Instance.StrToken.Length == 0)
-				return;
-			formName();
-			
+
+            if (Singleton.Instance.StrToken.Length == 0)
+            {
+                //No se autenticó;
+                return false;
+            }
+
+		    formName();
+		    return true;
 		}
 		private void formName()
 		{
@@ -79,13 +87,7 @@ namespace Raiz.Main
 				this.Text += " - " + usrName;
 			}
 		}
-		public void RevisaPermisosMenu()
-		{
-			foreach (FormBase fb in _frmHijos)
-			{
-				fb.RevisaPermisosMenu();
-			}
-		}
+		
 		
 		private void mnuSalirExec_Click(object sender, EventArgs e)
 		{
@@ -94,14 +96,12 @@ namespace Raiz.Main
 		private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (Singleton.Instance.StrToken.Trim() != "")
-			{
-				DialogResult res = MessageBox.Show(this, "Realmente usted desea salir?", "Confirmación", MessageBoxButtons.YesNo);
+			{   
+                var res = MessageBox.Show(this, "Realmente usted desea salir?", "Confirmación", MessageBoxButtons.YesNo);
 				if (res == DialogResult.No)
 					e.Cancel = true;
+                
 			}
-
-            _notifier.Desconectar();
-
 		}
 
 		private void mnuVistaCascada_Click(object sender, EventArgs e)
@@ -134,6 +134,22 @@ namespace Raiz.Main
 				}
 			}
 		}
+
+        private void Conectar()
+        {
+            _notifier.Conectar(Singleton.Instance.CodUsuario);
+        }
+
+        private void Desconectar()
+        {
+            _notifier.Desconectar();
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Desconectar();
+        }
+
 
 	}
 }
