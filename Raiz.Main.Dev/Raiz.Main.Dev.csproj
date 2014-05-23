@@ -196,11 +196,11 @@
     <None Include="Resources\Red-Background-Wallpaper-640x400.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
+    <ProjectReference Include="..\Raiz.Deployment.ClientManager\Raiz.Deployment.ClientManager.csproj">
       <Project>{f4103b92-fc80-4528-a0bd-93dd7fc493f2}</Project>
       <Name>Raiz.Deployment.ClientManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Raiz.Deployment\Raiz.Deployment\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
+    <ProjectReference Include="..\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
       <Project>{28277593-b5f7-41be-9b15-82ea2a98977c}</Project>
       <Name>Raiz.Deployment.DTO</Name>
     </ProjectReference>
@@ -215,7 +215,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

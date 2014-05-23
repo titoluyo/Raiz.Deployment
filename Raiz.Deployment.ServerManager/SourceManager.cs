@@ -46,12 +46,11 @@ namespace Raiz.Deployment.ServerManager
             var root=Path.Combine(ruta, _ejecutableCliente);
             if (!Directory.Exists(root))
             {
-                return listaComponentes;
+                root = ruta;
+                //return listaComponentes;
             }
 
             var componentesBase = Directory.GetFiles(root);
-            var componentes = Directory.GetFiles(_rutaExplorar,"*.dll*", SearchOption.AllDirectories);
-            
             
 
             foreach (var componente in componentesBase)
@@ -67,6 +66,13 @@ namespace Raiz.Deployment.ServerManager
                     listaComponentes.Add(publicacion);
                 }
             }
+
+            if (!Directory.Exists(_rutaExplorar))
+            {
+                return listaComponentes;
+            }
+
+            var componentes = Directory.GetFiles(_rutaExplorar, "*.dll*", SearchOption.AllDirectories);
 
             foreach (var componente in componentes)
             {
