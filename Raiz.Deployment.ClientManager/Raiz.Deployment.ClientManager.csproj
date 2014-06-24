@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,8 +51,15 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Raiz.Common.CL">
+      <HintPath>..\..\..\RaizNet\_libs\Modulos\Raiz.Common.CL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -55,6 +77,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,10 +91,46 @@
     </Compile>
     <Compile Include="LogManager.cs" />
     <Compile Include="MenuLoader.cs" />
+    <Compile Include="Menus\frmBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\frmBuscar.Designer.cs">
+      <DependentUpon>frmBuscar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\frmConsultaMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\frmConsultaMenu.Designer.cs">
+      <DependentUpon>frmConsultaMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\frmConsultaMenuHijos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\frmConsultaMenuHijos.designer.cs">
+      <DependentUpon>frmConsultaMenuHijos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\frmNuevoMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\frmNuevoMenu.Designer.cs">
+      <DependentUpon>frmNuevoMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\frmVerConsulta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\frmVerConsulta.Designer.cs">
+      <DependentUpon>frmVerConsulta.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModuleManager.cs" />
     <Compile Include="NotificacionManager.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\DeployService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MenuService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -80,7 +144,13 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="keypair.snk" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.BuscarMenu_Result.datasource" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.ConsultaMenuHijos_Result.datasource" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.ConsultaMenu_Result.datasource" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.ConsultaRegistroMenu_Result.datasource" />
     <None Include="Properties\DataSources\Raiz.Deployment.DTO.DescargaComponente.datasource" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.ListarPublicacionesVigentes_Result.datasource" />
+    <None Include="Properties\DataSources\Raiz.Deployment.DTO.Menu.datasource" />
     <None Include="Properties\DataSources\Raiz.Deployment.DTO.PubComponente.datasource" />
     <None Include="Properties\DataSources\Raiz.Deployment.DTO.Suscritor.datasource" />
     <None Include="Service References\DeployService\Raiz.Deployment.DTO.xsd">
@@ -96,13 +166,41 @@
     <None Include="Service References\DeployService\System.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\MenuService\Raiz.Deployment.DTO.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MenuService\service.wsdl" />
+    <None Include="Service References\MenuService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MenuService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmBase.resx">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDownload.resx">
       <DependentUpon>frmDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\frmBuscar.resx">
+      <DependentUpon>frmBuscar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\frmConsultaMenu.resx">
+      <DependentUpon>frmConsultaMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\frmConsultaMenuHijos.resx">
+      <DependentUpon>frmConsultaMenuHijos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\frmNuevoMenu.resx">
+      <DependentUpon>frmNuevoMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\frmVerConsulta.resx">
+      <DependentUpon>frmVerConsulta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\DeployService\" />
+    <WCFMetadataStorage Include="Service References\MenuService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\DeployService\configuration91.svcinfo" />
@@ -125,6 +224,30 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

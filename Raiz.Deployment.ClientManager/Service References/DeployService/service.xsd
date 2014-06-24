@@ -144,17 +144,31 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ConsultarPublicacionesPorUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarPublicacionesPorUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="ConsultarPublicacionesPorUsuarioResult" nillable="true" type="q20:ArrayOfPubComponente" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RecepcionarNotificacionMasiva">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="actualizaciones" nillable="true" type="q20:ArrayOfPubComponente" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="actualizaciones" nillable="true" type="q21:ArrayOfPubComponente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="RecepcionarNotificacionPersonal">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="actualizaciones" nillable="true" type="q21:ArrayOfPubComponente" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="actualizaciones" nillable="true" type="q22:ArrayOfPubComponente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -181,7 +195,7 @@
   <xs:element name="VersionesInstaladasClienteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="VersionesInstaladasClienteResult" nillable="true" type="q22:ArrayOfDescargaComponente" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Raiz.Deployment.DTO" minOccurs="0" name="VersionesInstaladasClienteResult" nillable="true" type="q23:ArrayOfDescargaComponente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

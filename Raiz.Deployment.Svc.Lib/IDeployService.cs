@@ -67,9 +67,10 @@ namespace Raiz.Deployment.Svc.Lib
         
         [OperationContract]
         List<DescargaComponente> ListarVersionesInstaladasCliente(Guid idOrigen, Guid idDestino);
-        
-    }
 
+        [OperationContract]
+        List<PubComponente> ConsultarPublicacionesPorUsuario(string usuario);
+    }
 
     public interface IDeployNotifyCallback
     {
@@ -91,6 +92,28 @@ namespace Raiz.Deployment.Svc.Lib
     }
 
 
+    
+    [ServiceContract]
+    public interface IMenuService
+    {
+        [OperationContract]
+        int CrearItemMenu(Menu item, string tipo);
 
+        [OperationContract]
+        ConsultaRegistroMenu_Result ConsultarMenu(int idMenu);
+
+        [OperationContract]
+        List<BuscarMenu_Result> BuscarMenu(int idPadre, int idMenu, string descripcion);
+
+        [OperationContract]
+        List<ConsultaMenu_Result> ConsultaMenu(int idMenu, string descripcion, int estado, int visibilidad);
+
+        [OperationContract]
+        List<ConsultaMenuHijos_Result> ConsultaMenuHijos(int idMenuPadre);
+
+        [OperationContract]
+        List<Menu> ListarMenus(bool estado);
+    }
+     
 
 }

@@ -41,12 +41,29 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuscarMenu_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaMenuHijos_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaMenu_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaRegistroMenu_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
     <Compile Include="DescargaComponente.cs" />
+    <Compile Include="ListarMenuPorUsuario_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ListarPublicacionesVigentes_Result.cs">
+      <DependentUpon>RaizNet.tt</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <DependentUpon>RaizNet.tt</DependentUpon>
     </Compile>

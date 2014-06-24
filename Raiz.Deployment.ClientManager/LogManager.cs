@@ -35,7 +35,7 @@ namespace Raiz.Deployment.ClientManager
                         descarga.FechaDescarga,
                         descarga.Componente,
                         descarga.Modulo,
-                        descarga.version,
+                        descarga.Version,
                         descarga.descargaObligatoria,
                         (int)descarga.estado,
                         descarga.Id));
@@ -73,7 +73,7 @@ namespace Raiz.Deployment.ClientManager
                             descarga.FechaDescarga = Convert.ToDateTime(cadenas[0]);
                             descarga.Componente = (string)cadenas[1];
                             descarga.Modulo = Convert.ToString(cadenas[2]);
-                            descarga.version = version;
+                            descarga.Version = version;
 
                             descarga.descargaObligatoria = Convert.ToBoolean(cadenas[4]);
                             descarga.estado = (DescargaComponente.EstadoDescarga)Convert.ToInt32(cadenas[5]);

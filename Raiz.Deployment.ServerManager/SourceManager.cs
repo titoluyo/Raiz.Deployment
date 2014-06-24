@@ -62,7 +62,7 @@ namespace Raiz.Deployment.ServerManager
                     var version = assy.GetName().Version;
                     publicacion.componente = componente;// Path.GetFileName(componente);// assy.GetName().Name;
                     var currentVersion = _publisher.ObtenerComponentePublicado(componente);
-                    publicacion.version = version;
+                    publicacion.version = version.ToString();
                     listaComponentes.Add(publicacion);
                 }
             }
@@ -83,7 +83,7 @@ namespace Raiz.Deployment.ServerManager
                     var version = assy.GetName().Version;
                     publicacion.componente = componente;// Path.GetFileName(componente);// assy.GetName().Name;
                     var currentVersion = _publisher.ObtenerComponentePublicado(componente);
-                    publicacion.version = version;
+                    publicacion.version = version.ToString();
                     listaComponentes.Add(publicacion);
                 }
             }
@@ -112,7 +112,7 @@ namespace Raiz.Deployment.ServerManager
                 //a la versión que actualmente esta publicada en el repositorio
                 //si no es mas actual, se deberá mostrar al usuario que versión
                 //ha sido publicada.
-                if (currentVersion==null || currentVersion < publicacion.version)
+                if (currentVersion==null || currentVersion < new Version(publicacion.version))
                 {
                     //Si la versión a publicar es más reciente se deberá realizar la publicación
                     //de lo contrario se deberá mostrar al usuario que la versión esta pendiente

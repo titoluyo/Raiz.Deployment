@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\_libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,7 +52,9 @@
     <Compile Include="DeployService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Raiz.Deployment.BLL\Raiz.Deployment.BL.csproj">
@@ -57,9 +62,12 @@
       <Name>Raiz.Deployment.BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Raiz.Deployment.DTO\Raiz.Deployment.DTO.csproj">
-      <Project>{28277593-B5F7-41BE-9B15-82EA2A98977C}</Project>
+      <Project>{28277593-b5f7-41be-9b15-82ea2a98977c}</Project>
       <Name>Raiz.Deployment.DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

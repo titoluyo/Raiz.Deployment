@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Raiz.Deployment.ClientManager
 {
-    public partial class frmAbout : Form
+    public partial class frmAbout : frmBase
     {
         private LogManager _logger=new LogManager();
 
@@ -30,7 +30,7 @@ namespace Raiz.Deployment.ClientManager
             foreach (var componente in componentes)
             {
                var current= versiones.FindLast(p => p.Componente == componente);
-                lbVersiones.Items.Add(string.Format("{0} - {1}, descargado el {2}", componente,current.version , current.FechaDescarga));
+                lbVersiones.Items.Add(string.Format("{0} - {1}, descargado el {2}", componente,current.Version , current.FechaDescarga));
             }
 
         }

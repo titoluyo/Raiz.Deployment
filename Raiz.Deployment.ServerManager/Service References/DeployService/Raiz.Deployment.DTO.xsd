@@ -50,9 +50,9 @@
       <xs:element minOccurs="0" name="FechaDescarga" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="ser:guid" />
       <xs:element minOccurs="0" name="Modulo" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Version" nillable="true" type="q2:Version" />
       <xs:element minOccurs="0" name="descargaObligatoria" type="xs:boolean" />
       <xs:element minOccurs="0" name="estado" type="tns:DescargaComponente.EstadoDescarga" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="version" nillable="true" type="q2:Version" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DescargaComponente" nillable="true" type="tns:DescargaComponente" />

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.ServiceModel;
 using System.Threading;
 using System.Windows.Forms;
+
 using Raiz.Deployment.ClientManager.DeployService;
 using Raiz.Deployment.DTO;
 
@@ -42,6 +43,7 @@ namespace Raiz.Deployment.ClientManager
                 _objsvc.Open();
                 _idCliente = _objsvc.Subscribe(_suscrito);
                 DeploySettings.IdCliente = _idCliente;
+                DeploySettings.UsuarioConectado = usuario;
             }
             catch (Exception)
             {

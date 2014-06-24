@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Raiz.Deployment.DTO;
+using Raiz.Deployment.Persistencia;
 
 namespace Raiz.Deployment.BL
 {
@@ -12,59 +13,27 @@ namespace Raiz.Deployment.BL
         public List<Menu> ListarMenuPorUsuario(string usuario)
         {
             var result = new List<Menu>();
-            var mnu = new Menu();
-            mnu.idMenu = 1;
-            mnu.idMenuPadre = 0;
-            mnu.displayName = "Reniec";
-            mnu.Descripcion = "";
-            mnu.formulario = "";
-            mnu.componente = "Raiz.Modulo1.dll";
-            result.Add(mnu);
+            
 
-            mnu = new Menu();
-            mnu.idMenu = 2;
-            mnu.idMenuPadre = 0;
-            mnu.displayName = "MGA";
-            mnu.Descripcion = "";
-            mnu.formulario = "";
-            mnu.componente = "Raiz.Modulo2.dll";
-            result.Add(mnu);
+            using (var ctx = new RaizNetContext())
+            {
+                var listaMenu = ctx.ListarMenuPorUsuario(usuario);
 
-            mnu = new Menu();
-            mnu.idMenu = 3;
-            mnu.idMenuPadre = 1;
-            mnu.displayName = "Consulta Reniec";
-            mnu.Descripcion = "";
-            mnu.formulario = "FrmMod1";
-            mnu.componente = "Raiz.Modulo1.dll";
-            result.Add(mnu);
-
-            mnu = new Menu();
-            mnu.idMenu = 4;
-            mnu.idMenuPadre = 2;
-            mnu.displayName = "Nueva Solicitud";
-            mnu.Descripcion = "";
-            mnu.formulario = "FrmMod2";
-            mnu.componente = "Raiz.Modulo2.dll";
-            result.Add(mnu);
-
-            mnu = new Menu();
-            mnu.idMenu = 5;
-            mnu.idMenuPadre = 1;
-            mnu.displayName = "Consulta &DNI";
-            mnu.Descripcion = "";
-            mnu.formulario = "frmReniecDNI";
-            mnu.componente = "Raiz.Reniec.Cliente.dll";
-            result.Add(mnu);
-
-            mnu = new Menu();
-            mnu.idMenu = 6;
-            mnu.idMenuPadre = 2;
-            mnu.displayName = "Consulta &Solicitudes";
-            mnu.Descripcion = "";
-            mnu.formulario = "frmMisSolicitudes";
-            mnu.componente = "Raiz.MGA.Cliente.dll";
-            result.Add(mnu);
+                foreach (var item in listaMenu)
+                {
+                    var mnu = new Menu();
+                    mnu.idMenu = item.idMenu;
+                    mnu.idMenuPadre = item.idMenuPadre;
+                    mnu.displayName = item.displayName;
+                    mnu.Descripcion = item.Descripcion;
+                    mnu.formulario = item.formulario;
+                    mnu.componente = item.componente;
+                    mnu.estado = item.estado;
+                    mnu.UsarVisibilidad = item.usarVisibilidad;
+                    result.Add(mnu);
+                    
+                }
+            }
 
             return result;
         }

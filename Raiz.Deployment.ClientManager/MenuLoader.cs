@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Raiz.Common.CL;
 using Raiz.Deployment.DTO;
 using Menu = Raiz.Deployment.DTO.Menu;
 
@@ -23,6 +24,8 @@ namespace Raiz.Deployment.ClientManager
 
         public MenuLoader()
         {
+            /*
+            
             var mnu = new Menu();
             mnu.idMenu = 1;
             mnu.idMenuPadre = 0;
@@ -30,6 +33,7 @@ namespace Raiz.Deployment.ClientManager
             mnu.Descripcion = "";
             mnu.formulario = "";
             mnu.componente = "Raiz.Modulo1.dll";
+
             _dbMenus.Add(mnu);
 
             mnu = new Menu();
@@ -76,6 +80,10 @@ namespace Raiz.Deployment.ClientManager
             mnu.formulario = "frmMisSolicitudes";
             mnu.componente = "Raiz.MGA.Cliente.dll";
             _dbMenus.Add(mnu);
+            */
+            var objsvc = new MenuService.MenuServiceClient();
+            objsvc.ConsultaMenuHijos(0);
+            _dbMenus = objsvc.ListarMenus(true);
 
         }
 
@@ -94,6 +102,8 @@ namespace Raiz.Deployment.ClientManager
         private MenuStrip CargarMenu(ToolStripMenuItem menuChild, int posicion)
         {
             var listaMenu = ListarMenus(posicion);//root menu
+            int contDisponibles = 0;
+
             if (listaMenu.Count > 0)
             {
                 foreach (var menu in listaMenu)
@@ -108,12 +118,27 @@ namespace Raiz.Deployment.ClientManager
                     {
                         var childMenu = new ToolStripMenuItem(menu.displayName, null,
                             new EventHandler(LoadFormulario),string.Format("{0}/{1}",menu.componente,menu.formulario) );
+
+                       var permiso= AutenticacionCL.GetAutorizacion(menu.CodPrograma, false);
+
+                       if (permiso) contDisponibles++;
+
+                        childMenu.Enabled = permiso;
+
                         menuChild.DropDownItems.Add(childMenu);
 
                     }
                 }
+
+                if (contDisponibles == 0 && menuChild!=null) menuChild.Visible = false;
+
             }
-            
+            else if (menuChild != null)
+            {
+                menuChild.Visible = false;
+            }
+
+
             return _mainMenu;
         }
 
@@ -124,6 +149,7 @@ namespace Raiz.Deployment.ClientManager
             var elements = rutaForm.Split('/');
             var componente = elements[0];
             var formName = elements[1];
+            if (!componente.EndsWith(".dll")) componente = string.Format("{0}.dll", componente);
 
             //Antes de cargar el componente verificar si éste  no se encuentra
             //en la lista de componentes con actualización forzosa
@@ -211,12 +237,22 @@ namespace Raiz.Deployment.ClientManager
         public void CrearMenuInfo()
         {
             var rootMenu = new ToolStripMenuItem("Acerca de");
+
             var childMenu = new ToolStripMenuItem("Versiones", null, LoadInfoForm);
             rootMenu.DropDown.Items.Add(childMenu);
+
+            var manageMenu = new ToolStripMenuItem("Administración Menú", null, LoadMenuForm);
+            rootMenu.DropDown.Items.Add(manageMenu);
+
             _mainMenu.Items.Add(rootMenu);
         }
 
 
+        public void LoadMenuForm(object sender,EventArgs e)
+        {
+            var frm = new Menus.frmConsultaMenu();
+            frm.ShowDialog();
+        }
         public void LoadInfoForm(object sender, EventArgs e)
         {
             var frm = new frmAbout();

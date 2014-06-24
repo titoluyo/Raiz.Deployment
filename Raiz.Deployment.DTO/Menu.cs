@@ -21,5 +21,11 @@ namespace Raiz.Deployment.DTO
         public string componente { get; set; }
         public Nullable<int> idMenuPadre { get; set; }
         public Nullable<bool> estado { get; set; }
+        public Nullable<bool> UsarVisibilidad { get; set; }
+        public string UsuarioRegistro { get; set; }
+        public Nullable<System.DateTime> FechaRegistro { get; set; }
+        public string UsuarioModifica { get; set; }
+        public Nullable<System.DateTime> FechaModifica { get; set; }
+        public string CodPrograma { get; set; }
     }
 }

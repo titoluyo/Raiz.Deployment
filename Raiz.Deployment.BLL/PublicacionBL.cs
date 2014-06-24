@@ -21,19 +21,81 @@ namespace Raiz.Deployment.BL
 
         public List<PubComponente> ConsultarPublicaciones()
         {
-            return Singleton.Instance.ListaPublicaciones;
-            //var publicaciones = Singleton.Instance.ListaPublicaciones;
+
+            using (var ctx = new RaizNetContext())
+            {
+
+                var listaPre = ctx.ListarPublicacionesVigentes().ToList();
+
+                var resultPre = (from tm in ctx.TBMRaizNetPubComponente
+                              //from td in listaPre 
+                              //where tm.idPublicacion == td.idPublicacion
+                              select tm).ToList();
+
+                var result = (from a in resultPre
+                              join d in listaPre on a.idPublicacion equals d.idPublicacion
+                              select a).ToList();
+                
+
+                return result;
+            }
+        }
+
+        public List<PubComponente> ConsultarPublicaciones(string usuario)
+        {
+
+            using (var ctx = new RaizNetContext())
+            {
+                var resultfinal = new List<PubComponente>();
+
+                var listaPre = ctx.ListarPublicacionesVigentes().ToList();
+                var resultPre = (from tm in ctx.TBMRaizNetPubComponente
+                                 select tm).ToList();
+
+                var result = (from a in resultPre
+                              join d in listaPre on a.idPublicacion equals d.idPublicacion
+                              select a).ToList();
+
+                var objAut = new AutorizacionBL();
+                var compons = objAut.ListarComponentesUsoPorUsuario(usuario);
+                foreach (var componente in result)
+                {
+                    if (compons.Exists(p => componente.componente.Contains(p)))
+                    {
+                        resultfinal.Add(componente);
+
+                    }
+
+                }
+                return resultfinal;
+            }
         }
 
         public PubComponente ConsultarPublicacionPorComponente(string componente)
         {
-            return _listaComponentes.Find(p => p.componente == componente);
+            using (var ctx = new RaizNetContext())
+            {
+                var result = (from tm in ctx.TBMRaizNetPubComponente
+                              where tm.componente == componente
+                              select tm).LastOrDefault();
+                return result;
+
+            }
+
+            //return _listaComponentes.Find(p => p.componente == componente);
         }
 
         public void RegistrarPublicacion(PubComponente publicacion)
         {
-            Singleton.Instance.ListaPublicaciones.RemoveAll(p => p.componente == publicacion.componente);
-            Singleton.Instance.ListaPublicaciones.Add(publicacion);
+//            Singleton.Instance.ListaPublicaciones.RemoveAll(p => p.componente == publicacion.componente);
+  //          Singleton.Instance.ListaPublicaciones.Add(publicacion);
+            
+            using (var ctx = new RaizNetContext())
+            {
+                ctx.TBMRaizNetPubComponente.Add(publicacion);
+                ctx.SaveChanges();
+            }
+
         }
 
         public List<Suscritor> ListarSuscriptores()

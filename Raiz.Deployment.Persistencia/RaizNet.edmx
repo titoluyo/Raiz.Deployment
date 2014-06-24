@@ -21,6 +21,12 @@
           <Property Name="componente" Type="varchar" MaxLength="256" />
           <Property Name="idMenuPadre" Type="int" />
           <Property Name="estado" Type="bit" />
+          <Property Name="UsarVisibilidad" Type="bit" />
+          <Property Name="UsuarioRegistro" Type="varchar" MaxLength="4" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="UsuarioModifica" Type="varchar" MaxLength="4" />
+          <Property Name="FechaModifica" Type="datetime" />
+          <Property Name="CodPrograma" Type="varchar" MaxLength="14" />
         </EntityType>
         <EntityType Name="TBMRaizNetModulo">
           <Key>
@@ -44,14 +50,82 @@
           <Property Name="fechaRegistro" Type="datetime" />
           <Property Name="nivelUrgencia" Type="tinyint" />
         </EntityType>
+        <Function Name="usp_ConsultaMenuHijos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPadre" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MENU_BuscarMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPadre" Type="int" Mode="In" />
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+          <Parameter Name="NomMenu" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MENU_ConsultaMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+          <Parameter Name="DisplayName" Type="varchar" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+          <Parameter Name="UsarVisibilidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MENU_ConsultaRegistroMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MENU_CreaActualizaMenus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="DisplayName" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Formulario" Type="varchar" Mode="In" />
+          <Parameter Name="Componente" Type="varchar" Mode="In" />
+          <Parameter Name="CodPrograma" Type="varchar" Mode="In" />
+          <Parameter Name="idMenuPadre" Type="int" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
+          <Parameter Name="UsarVisibilidad" Type="bit" Mode="In" />
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_RaizNet_listaMenuPorUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ccodusu" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_RaizNet_listarPublicacionesVigentes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RAIZLOGModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="RAIZLOGEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RaizNetContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBMRaizNetMenu" EntityType="RAIZLOGModel.Menu" />
           <EntitySet Name="TBMRaizNetModulo" EntityType="RAIZLOGModel.Modulo" />
           <EntitySet Name="TBMRaizNetPubComponente" EntityType="RAIZLOGModel.PubComponente" />
+          <FunctionImport Name="ConsultaRegistroMenu" ReturnType="Collection(RAIZLOGModel.ConsultaRegistroMenu_Result)">
+          <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreaActualizaMenus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="DisplayName" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Formulario" Mode="In" Type="String" />
+            <Parameter Name="Componente" Mode="In" Type="String" />
+            <Parameter Name="CodPrograma" Mode="In" Type="String" />
+            <Parameter Name="idMenuPadre" Mode="In" Type="Int32" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
+            <Parameter Name="UsarVisibilidad" Mode="In" Type="Boolean" />
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultaMenu" ReturnType="Collection(RAIZLOGModel.ConsultaMenu_Result)">
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+            <Parameter Name="DisplayName" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+            <Parameter Name="UsarVisibilidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultaMenuHijos" ReturnType="Collection(RAIZLOGModel.ConsultaMenuHijos_Result)">
+          <Parameter Name="IdPadre" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BuscarMenu" ReturnType="Collection(RAIZLOGModel.BuscarMenu_Result)">
+            <Parameter Name="IdPadre" Mode="In" Type="Int32" />
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+            <Parameter Name="NomMenu" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ListarPublicacionesVigentes" ReturnType="Collection(RAIZLOGModel.ListarPublicacionesVigentes_Result)" />
+          <FunctionImport Name="ListarMenuPorUsuario" ReturnType="Collection(RAIZLOGModel.ListarMenuPorUsuario_Result)">
+            <Parameter Name="ccodusu" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Menu">
           <Key>
@@ -64,6 +138,12 @@
           <Property Name="componente" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
           <Property Name="idMenuPadre" Type="Int32" />
           <Property Name="estado" Type="Boolean" />
+          <Property Type="Boolean" Name="UsarVisibilidad" />
+          <Property Type="String" Name="UsuarioRegistro" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Precision="3" />
+          <Property Type="String" Name="UsuarioModifica" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaModifica" Precision="3" />
+          <Property Type="String" Name="CodPrograma" MaxLength="14" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -82,20 +162,161 @@
           <Property Name="idPublicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="componente" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
           <Property Name="idModulo" Type="Int32" />
-          <Property Name="version" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="version" Type="String" MaxLength="128" Unicode="false" FixedLength="false" >
+            <Documentation>
+              <LongDescription>CastTo.Version</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="descargaObligatoria" Type="Boolean" />
           <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
           <Property Type="Byte" Name="nivelUrgencia" />
         </EntityType>
-      </Schema>
+        <ComplexType Name="ConsultaRegistroMenu_Result">
+          <Property Type="String" Name="DisplayName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="Formulario" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="IdMenuPadre" Nullable="true" />
+          <Property Type="Boolean" Name="Estado" Nullable="true" />
+          <Property Type="Boolean" Name="UsarVisibilidad" Nullable="true" />
+          <Property Type="String" Name="UsuarioRegistro" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UsuarioModifica" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaModifica" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomMenuPadre" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="CodPrograma" Nullable="true" MaxLength="14" />
+        </ComplexType>
+        <ComplexType Name="ConsultaMenu_Result">
+          <Property Type="Int32" Name="idMenu" Nullable="false" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="formulario" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="idMenuPadre" Nullable="true" />
+          <Property Type="Boolean" Name="estado" Nullable="true" />
+          <Property Type="Boolean" Name="UsarVisibilidad" Nullable="true" />
+          <Property Type="String" Name="UsuarioRegistro" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UsuarioModifica" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaModifica" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CodPrograma" Nullable="true" MaxLength="14" />
+        </ComplexType>
+        <ComplexType Name="ConsultaMenuHijos_Result">
+          <Property Type="Int32" Name="idMenu" Nullable="false" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="formulario" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="idMenuPadre" Nullable="true" />
+          <Property Type="Boolean" Name="estado" Nullable="true" />
+          <Property Type="Boolean" Name="UsarVisibilidad" Nullable="true" />
+          <Property Type="String" Name="UsuarioRegistro" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UsuarioModifica" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaModifica" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="BuscarMenu_Result">
+          <Property Type="Int32" Name="idMenu" Nullable="false" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="formulario" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="idMenuPadre" Nullable="true" />
+          <Property Type="Boolean" Name="estado" Nullable="true" />
+          <Property Type="Boolean" Name="UsarVisibilidad" Nullable="true" />
+          <Property Type="String" Name="UsuarioRegistro" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="ListarPublicacionesVigentes_Result">
+          <Property Type="Int32" Name="idPublicacion" Nullable="false" />
+          <Property Type="String" Name="componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="idModulo" Nullable="true" />
+          <Property Type="String" Name="version" Nullable="true" MaxLength="128" />
+          <Property Type="Boolean" Name="descargaObligatoria" Nullable="true" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="Byte" Name="nivelUrgencia" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ListarMenuPorUsuario_Result">
+          <Property Type="Int32" Name="idMenu" Nullable="false" />
+          <Property Type="String" Name="displayName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="formulario" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="componente" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="idMenuPadre" Nullable="true" />
+          <Property Type="Boolean" Name="estado" Nullable="true" />
+          <Property Type="Boolean" Name="usarVisibilidad" Nullable="true" />
+        </ComplexType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RAIZLOGModelStoreContainer" CdmEntityContainer="RAIZLOGEntities">
-          <EntitySetMapping Name="TBMRaizNetMenu">
-            <EntityTypeMapping TypeName="RAIZLOGModel.Menu">
-              <MappingFragment StoreEntitySet="TBMRaizNetMenu">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RAIZLOGModelStoreContainer" CdmEntityContainer="RaizNetContext">
+    <EntitySetMapping Name="TBMRaizNetMenu">
+      <EntityTypeMapping TypeName="IsTypeOf(RAIZLOGModel.Menu)">
+        <MappingFragment StoreEntitySet="TBMRaizNetMenu">
+          <ScalarProperty Name="CodPrograma" ColumnName="CodPrograma" />
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+          <ScalarProperty Name="displayName" ColumnName="displayName" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="formulario" ColumnName="formulario" />
+          <ScalarProperty Name="componente" ColumnName="componente" />
+          <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="UsarVisibilidad" ColumnName="UsarVisibilidad" />
+          <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+          <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBMRaizNetModulo">
+      <EntityTypeMapping TypeName="IsTypeOf(RAIZLOGModel.Modulo)">
+        <MappingFragment StoreEntitySet="TBMRaizNetModulo">
+          <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+          <ScalarProperty Name="nombreModulo" ColumnName="nombreModulo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="formatoVersion" ColumnName="formatoVersion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBMRaizNetPubComponente">
+      <EntityTypeMapping TypeName="IsTypeOf(RAIZLOGModel.PubComponente)">
+        <MappingFragment StoreEntitySet="TBMRaizNetPubComponente">
+          <ScalarProperty Name="idPublicacion" ColumnName="idPublicacion" />
+          <ScalarProperty Name="componente" ColumnName="componente" />
+          <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="descargaObligatoria" ColumnName="descargaObligatoria" />
+          <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+          <ScalarProperty Name="nivelUrgencia" ColumnName="nivelUrgencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ConsultaRegistroMenu" FunctionName="RAIZLOGModel.Store.usp_MENU_ConsultaRegistroMenu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.ConsultaRegistroMenu_Result">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Formulario" ColumnName="Formulario" />
+                <ScalarProperty Name="Componente" ColumnName="Componente" />
+                <ScalarProperty Name="IdMenuPadre" ColumnName="IdMenuPadre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UsarVisibilidad" ColumnName="UsarVisibilidad" />
+                <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+                <ScalarProperty Name="NomMenuPadre" ColumnName="NomMenuPadre" />
+                <ScalarProperty Name="CodPrograma" ColumnName="CodPrograma" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreaActualizaMenus" FunctionName="RAIZLOGModel.Store.usp_MENU_CreaActualizaMenus" />
+          <FunctionImportMapping FunctionImportName="ConsultaMenu" FunctionName="RAIZLOGModel.Store.usp_MENU_ConsultaMenu" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.ConsultaMenu_Result">
                 <ScalarProperty Name="idMenu" ColumnName="idMenu" />
                 <ScalarProperty Name="displayName" ColumnName="displayName" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -103,36 +324,77 @@
                 <ScalarProperty Name="componente" ColumnName="componente" />
                 <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBMRaizNetModulo">
-            <EntityTypeMapping TypeName="RAIZLOGModel.Modulo">
-              <MappingFragment StoreEntitySet="TBMRaizNetModulo">
-                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
-                <ScalarProperty Name="nombreModulo" ColumnName="nombreModulo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="formatoVersion" ColumnName="formatoVersion" />
+                <ScalarProperty Name="UsarVisibilidad" ColumnName="UsarVisibilidad" />
+                <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+                <ScalarProperty Name="CodPrograma" ColumnName="CodPrograma" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultaMenuHijos" FunctionName="RAIZLOGModel.Store.usp_ConsultaMenuHijos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.ConsultaMenuHijos_Result">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBMRaizNetPubComponente">
-            <EntityTypeMapping TypeName="RAIZLOGModel.PubComponente">
-              <MappingFragment StoreEntitySet="TBMRaizNetPubComponente">
-                <ScalarProperty Name="nivelUrgencia" ColumnName="nivelUrgencia" />
+                <ScalarProperty Name="UsarVisibilidad" ColumnName="UsarVisibilidad" />
+                <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="FechaModifica" ColumnName="FechaModifica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BuscarMenu" FunctionName="RAIZLOGModel.Store.usp_MENU_BuscarMenu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.BuscarMenu_Result">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="UsarVisibilidad" ColumnName="UsarVisibilidad" />
+                <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListarPublicacionesVigentes" FunctionName="RAIZLOGModel.Store.usp_RaizNet_listarPublicacionesVigentes">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.ListarPublicacionesVigentes_Result">
                 <ScalarProperty Name="idPublicacion" ColumnName="idPublicacion" />
                 <ScalarProperty Name="componente" ColumnName="componente" />
                 <ScalarProperty Name="idModulo" ColumnName="idModulo" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="descargaObligatoria" ColumnName="descargaObligatoria" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+                <ScalarProperty Name="nivelUrgencia" ColumnName="nivelUrgencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListarMenuPorUsuario" FunctionName="RAIZLOGModel.Store.usp_RaizNet_listaMenuPorUsuario">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="RAIZLOGModel.ListarMenuPorUsuario_Result">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="idMenuPadre" ColumnName="idMenuPadre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usarVisibilidad" ColumnName="usarVisibilidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">

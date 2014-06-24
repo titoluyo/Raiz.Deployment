@@ -48,32 +48,24 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaizNet.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>RaizNet.Context.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="RaizNet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>RaizNet.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="RaizNet.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RaizNet.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
     <None Include="RaizNet.Context.tt">
+      <DependentUpon>RaizNet.edmx</DependentUpon>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RaizNet.edmx</DependentUpon>
       <LastGenOutput>RaizNet.Context.cs</LastGenOutput>
-    </None>
-    <None Include="RaizNet.edmx.diagram">
-      <DependentUpon>RaizNet.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +76,15 @@
       <Project>{28277593-b5f7-41be-9b15-82ea2a98977c}</Project>
       <Name>Raiz.Deployment.DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="RaizNet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RaizNet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RaizNet.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

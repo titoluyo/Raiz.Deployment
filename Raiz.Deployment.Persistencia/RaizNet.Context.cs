@@ -14,11 +14,14 @@ namespace Raiz.Deployment.Persistencia
     using System.Data.Entity.Infrastructure;
     using Raiz.Deployment.DTO;
     
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
-    public partial class RAIZLOGEntities : DbContext
+    public partial class RaizNetContext : DbContext
     {
-        public RAIZLOGEntities()
-            : base("name=RAIZLOGEntities")
+        public RaizNetContext()
+            : base("name=RaizNetContext")
         {
         }
     
@@ -30,5 +33,124 @@ namespace Raiz.Deployment.Persistencia
         public DbSet<Menu> TBMRaizNetMenu { get; set; }
         public DbSet<Modulo> TBMRaizNetModulo { get; set; }
         public DbSet<PubComponente> TBMRaizNetPubComponente { get; set; }
+    
+        public virtual ObjectResult<ConsultaRegistroMenu_Result> ConsultaRegistroMenu(Nullable<int> idMenu)
+        {
+            var idMenuParameter = idMenu.HasValue ?
+                new ObjectParameter("IdMenu", idMenu) :
+                new ObjectParameter("IdMenu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaRegistroMenu_Result>("ConsultaRegistroMenu", idMenuParameter);
+        }
+    
+        public virtual int CreaActualizaMenus(Nullable<int> id, string displayName, string descripcion, string formulario, string componente, string codPrograma, Nullable<int> idMenuPadre, Nullable<bool> estado, Nullable<bool> usarVisibilidad, string usuario, string tipo)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var displayNameParameter = displayName != null ?
+                new ObjectParameter("DisplayName", displayName) :
+                new ObjectParameter("DisplayName", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var formularioParameter = formulario != null ?
+                new ObjectParameter("Formulario", formulario) :
+                new ObjectParameter("Formulario", typeof(string));
+    
+            var componenteParameter = componente != null ?
+                new ObjectParameter("Componente", componente) :
+                new ObjectParameter("Componente", typeof(string));
+    
+            var codProgramaParameter = codPrograma != null ?
+                new ObjectParameter("CodPrograma", codPrograma) :
+                new ObjectParameter("CodPrograma", typeof(string));
+    
+            var idMenuPadreParameter = idMenuPadre.HasValue ?
+                new ObjectParameter("idMenuPadre", idMenuPadre) :
+                new ObjectParameter("idMenuPadre", typeof(int));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(bool));
+    
+            var usarVisibilidadParameter = usarVisibilidad.HasValue ?
+                new ObjectParameter("UsarVisibilidad", usarVisibilidad) :
+                new ObjectParameter("UsarVisibilidad", typeof(bool));
+    
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(string));
+    
+            var tipoParameter = tipo != null ?
+                new ObjectParameter("Tipo", tipo) :
+                new ObjectParameter("Tipo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreaActualizaMenus", idParameter, displayNameParameter, descripcionParameter, formularioParameter, componenteParameter, codProgramaParameter, idMenuPadreParameter, estadoParameter, usarVisibilidadParameter, usuarioParameter, tipoParameter);
+        }
+    
+        public virtual ObjectResult<ConsultaMenu_Result> ConsultaMenu(Nullable<int> idMenu, string displayName, Nullable<int> estado, Nullable<int> usarVisibilidad)
+        {
+            var idMenuParameter = idMenu.HasValue ?
+                new ObjectParameter("IdMenu", idMenu) :
+                new ObjectParameter("IdMenu", typeof(int));
+    
+            var displayNameParameter = displayName != null ?
+                new ObjectParameter("DisplayName", displayName) :
+                new ObjectParameter("DisplayName", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            var usarVisibilidadParameter = usarVisibilidad.HasValue ?
+                new ObjectParameter("UsarVisibilidad", usarVisibilidad) :
+                new ObjectParameter("UsarVisibilidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaMenu_Result>("ConsultaMenu", idMenuParameter, displayNameParameter, estadoParameter, usarVisibilidadParameter);
+        }
+    
+        public virtual ObjectResult<ConsultaMenuHijos_Result> ConsultaMenuHijos(Nullable<int> idPadre)
+        {
+            var idPadreParameter = idPadre.HasValue ?
+                new ObjectParameter("IdPadre", idPadre) :
+                new ObjectParameter("IdPadre", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaMenuHijos_Result>("ConsultaMenuHijos", idPadreParameter);
+        }
+    
+        public virtual ObjectResult<BuscarMenu_Result> BuscarMenu(Nullable<int> idPadre, Nullable<int> idMenu, string nomMenu)
+        {
+            var idPadreParameter = idPadre.HasValue ?
+                new ObjectParameter("IdPadre", idPadre) :
+                new ObjectParameter("IdPadre", typeof(int));
+    
+            var idMenuParameter = idMenu.HasValue ?
+                new ObjectParameter("IdMenu", idMenu) :
+                new ObjectParameter("IdMenu", typeof(int));
+    
+            var nomMenuParameter = nomMenu != null ?
+                new ObjectParameter("NomMenu", nomMenu) :
+                new ObjectParameter("NomMenu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BuscarMenu_Result>("BuscarMenu", idPadreParameter, idMenuParameter, nomMenuParameter);
+        }
+    
+        public virtual ObjectResult<ListarPublicacionesVigentes_Result> ListarPublicacionesVigentes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListarPublicacionesVigentes_Result>("ListarPublicacionesVigentes");
+        }
+    
+        public virtual ObjectResult<ListarMenuPorUsuario_Result> ListarMenuPorUsuario(string ccodusu)
+        {
+            var ccodusuParameter = ccodusu != null ?
+                new ObjectParameter("ccodusu", ccodusu) :
+                new ObjectParameter("ccodusu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListarMenuPorUsuario_Result>("ListarMenuPorUsuario", ccodusuParameter);
+        }
     }
 }

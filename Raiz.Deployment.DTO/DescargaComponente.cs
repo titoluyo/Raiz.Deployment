@@ -20,7 +20,7 @@ namespace Raiz.Deployment.DTO
         public string Componente { get; set; }
         public DateTime FechaDescarga { get; set; }
         public string Modulo { get; set; }
-        public Version version { get; set; }
+        public Version Version { get; set; }
         public bool descargaObligatoria { get; set; }
         public EstadoDescarga estado { get; set; }
     }

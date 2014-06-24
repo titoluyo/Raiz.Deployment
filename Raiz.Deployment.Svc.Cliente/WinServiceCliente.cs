@@ -8,6 +8,7 @@ namespace Raiz.Deployment.Svc.Cliente
     partial class WinServiceCliente : ServiceBase
     {
         public ServiceHost serviceHost = null;
+        public ServiceHost mnuServiceHost = null;
         
         public WinServiceCliente()
         {
@@ -24,6 +25,14 @@ namespace Raiz.Deployment.Svc.Cliente
             serviceHost = new ServiceHost(typeof(DeployService));
             serviceHost.Open();
 
+            if (mnuServiceHost != null)
+            {
+                mnuServiceHost.Close();
+            }
+
+            mnuServiceHost = new ServiceHost(typeof(MenuService));
+            mnuServiceHost.Open();
+
         }
 
         protected override void OnStop()
@@ -31,8 +40,13 @@ namespace Raiz.Deployment.Svc.Cliente
             if (serviceHost != null)
             {
                 serviceHost.Close();
-
             }
+
+            if (mnuServiceHost != null)
+            {
+                mnuServiceHost.Close();
+            }
+
         }
     }
 }

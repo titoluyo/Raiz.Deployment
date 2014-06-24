@@ -36,7 +36,13 @@ namespace Raiz.Main
 				//this.Text += " - " + Environment.Version.ToString();
 			}
             
-            if(!Autentica())this.Close();
+            if(!Autentica())
+            {
+                this.Close();
+                return;
+                
+            }
+		    
             //this.Show();
             Conectar();
             DeployInit();

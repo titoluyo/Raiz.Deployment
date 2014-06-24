@@ -45,7 +45,7 @@ namespace Raiz.Deployment.ClientManager
                 descarga = new DescargaComponente();
                 descarga.Id = Guid.NewGuid();
                 descarga.Componente = componente.componente;
-                descarga.version =  componente.version;
+                descarga.Version =  new Version(componente.version);
                 descarga.FechaDescarga = DateTime.Now;
                 descarga.Modulo = componente.idModulo.ToString();
                 descarga.descargaObligatoria = (componente.descargaObligatoria ?? false);
@@ -105,11 +105,18 @@ namespace Raiz.Deployment.ClientManager
             }
             catch (WebException ex)
             {
-                if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                if (ex.Status == WebExceptionStatus.ConnectFailure)
+                    rpta = false;
+
+                if (ex.Response != null)
                 {
-                    //No esta disponible la descarga
-                    rpta= false;
+                    if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                    {
+                        //No esta disponible la descarga
+                        rpta = false;
+                    }
                 }
+                
             }
             
             return rpta;
@@ -129,7 +136,7 @@ namespace Raiz.Deployment.ClientManager
 
             if (!ValidaComponenteDescargar(componente)) return; //La descarga esta disponible
             //Crear la copia local del componente si existiese
-            CrearCopiaLocalComponente(componente.componente, (descarga==null?componente.version:descarga.version));
+            CrearCopiaLocalComponente(componente.componente, (descarga==null? new Version(componente.version):  descarga.Version));
             
 
             using (var client = new WebClient())
@@ -174,7 +181,7 @@ namespace Raiz.Deployment.ClientManager
             
             //Listar todas las actualizaciones de los componentes del servidor
             var objsvc = new DeployServiceClient(new InstanceContext(notifyCallBack));
-            var componentesActualizados = objsvc.ConsultarPublicaciones();
+            var componentesActualizados = objsvc.ConsultarPublicacionesPorUsuario(DeploySettings.UsuarioConectado);
 
             var componentesInstaladas = ListarComponentesInstalados();
             foreach (var componente in componentesActualizados)
@@ -207,7 +214,7 @@ namespace Raiz.Deployment.ClientManager
             if (!File.Exists(Path.Combine(_rutaLocal, componente)))
             {
                 //No está instalado, se debe verificar si existe el componente 
-                MessageBox.Show("No esta instalado el componente requerido en este equipo.");
+                MessageBox.Show(string.Format("El componente requerido {0},no se encuentra instalado en este equipo", componente));
                 var componenteActualizado = ObtenerComponenteActualizado(componente);
                 if (componenteActualizado != null)
                 {
@@ -222,6 +229,8 @@ namespace Raiz.Deployment.ClientManager
                     if (!frm.DescargaExitosa) return null;
 
                 }
+                else
+                    return null;
             }
             //Revisar si las dependencias del componente se encuentran instaladas en la PC
             //CargarComponenteDomain(componente,"FrmMisSolicitudes");

@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading;
 using Raiz.Deployment.BL;
 using Raiz.Deployment.DTO;
+using AutoMapper;
+
+
 
 
 namespace Raiz.Deployment.Svc.Lib
@@ -24,8 +27,17 @@ namespace Raiz.Deployment.Svc.Lib
         public List<PubComponente> ConsultarPublicaciones()
         {
             var obj = new PublicacionBL();
-            return obj.ConsultarPublicaciones();
+            var resultPre=obj.ConsultarPublicaciones();
+            return resultPre;
         }
+
+        public List<PubComponente> ConsultarPublicacionesPorUsuario(string usuario)
+        {
+            var obj = new PublicacionBL();
+            var resultPre = obj.ConsultarPublicaciones(usuario);
+            return resultPre;
+        }
+
 
         public PubComponente ConsultarPublicacionPorComponente(string componente)
         {
@@ -258,6 +270,59 @@ namespace Raiz.Deployment.Svc.Lib
                 }
             );
         }
-
+        
     }
+
+    public class MenuService : IMenuService
+    {
+        #region Solicitud
+
+        public int CrearItemMenu(Menu item, string tipo)
+        {
+            var objBL = new MenuBL();
+            return objBL.CrearItemMenu(item,tipo);
+        }
+
+        public ConsultaRegistroMenu_Result ConsultarMenu(int idMenu)
+        {
+
+            Mapper.CreateMap<MenuBL, ConsultaRegistroMenu_Result>();
+            var menuBL = new MenuBL();
+            ConsultaRegistroMenu_Result pre = menuBL.ConsultarMenu(idMenu);
+            return pre;
+        }
+
+        public List<BuscarMenu_Result> BuscarMenu(int idPadre, int idMenu, string descripcion)
+        {
+            Mapper.CreateMap<MenuBL, BuscarMenu_Result>();
+            var BusqBL = new MenuBL();
+            var result = BusqBL.BuscarMenu(idPadre, idMenu, descripcion);
+            return result;
+        }
+
+        public List<ConsultaMenu_Result> ConsultaMenu(int idMenu,string descripcion, int estado, int visibilidad)
+        {
+            Mapper.CreateMap<MenuBL,ConsultaMenu_Result>();
+            var ConsBL = new MenuBL();
+            var result = ConsBL.ConsultaMenu(idMenu, descripcion, estado, visibilidad);
+            return result;
+        }
+
+        public List<ConsultaMenuHijos_Result> ConsultaMenuHijos(int idMenuPadre)
+        {
+            var HijBL = new MenuBL();
+            var result = HijBL.ConsultaMenuHijos(idMenuPadre);
+            return result;
+        }
+
+        public List<Menu> ListarMenus(bool estado)
+        {
+            var objBL = new MenuBL();
+            return objBL.ListarMenus(estado);
+        }
+
+        #endregion
+    }
+
+
 }

@@ -81,6 +81,12 @@
   <wsdl:message name="IDeployService_ListarVersionesInstaladasCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarVersionesInstaladasClienteResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeployService_ConsultarPublicacionesPorUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarPublicacionesPorUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IDeployService_ConsultarPublicacionesPorUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarPublicacionesPorUsuarioResponse" />
+  </wsdl:message>
   <wsdl:message name="IDeployService_RecepcionarNotificacionMasiva_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RecepcionarNotificacionMasiva" />
   </wsdl:message>
@@ -142,6 +148,10 @@
     <wsdl:operation name="ListarVersionesInstaladasCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ListarVersionesInstaladasCliente" message="tns:IDeployService_ListarVersionesInstaladasCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ListarVersionesInstaladasClienteResponse" message="tns:IDeployService_ListarVersionesInstaladasCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPublicacionesPorUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeployService/ConsultarPublicacionesPorUsuario" message="tns:IDeployService_ConsultarPublicacionesPorUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/ConsultarPublicacionesPorUsuarioResponse" message="tns:IDeployService_ConsultarPublicacionesPorUsuario_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecepcionarNotificacionMasiva">
       <wsdl:output wsaw:Action="http://tempuri.org/IDeployService/RecepcionarNotificacionMasiva" message="tns:IDeployService_RecepcionarNotificacionMasiva_OutputCallbackMessage" />
@@ -253,6 +263,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarVersionesInstaladasCliente">
       <soap12:operation soapAction="http://tempuri.org/IDeployService/ListarVersionesInstaladasCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPublicacionesPorUsuario">
+      <soap12:operation soapAction="http://tempuri.org/IDeployService/ConsultarPublicacionesPorUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

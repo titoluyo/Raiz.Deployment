@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ade7b01d-80f7-4c3b-af70-268c43c6aa5f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3cf5d8bb-f332-410c-b667-aeb4b903465d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -25,11 +25,11 @@
     <MetadataSource Address="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="ba5b8c3d-7507-4d13-a662-ed12be9f6457" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6426097d-d340-4948-b694-8ddf4635a200" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="4bda62c4-53a8-4e24-850b-60310db2b4cc" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
-    <MetadataFile FileName="Raiz.Deployment.DTO.xsd" MetadataType="Schema" ID="9a7af982-787d-4209-ab33-7a321e888e7b" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
-    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="f33012cb-9f20-4059-9973-ee692c64247a" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="8cc08def-9411-4924-9d4e-dd940c00ab3a" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="20fcee6c-ef2b-4d34-9e91-03bcdf9b4d7f" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="b2487c11-2377-4bdf-8dd8-ab92a33e13c3" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="Raiz.Deployment.DTO.xsd" MetadataType="Schema" ID="e5886e9a-4b93-412c-9a69-6e5db2e344e8" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="b00331e8-5f5d-4c69-9b23-c6d69c4b657c" SourceId="1" SourceUrl="net.tcp://localhost:9000/RaizSOAServices/DeployService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

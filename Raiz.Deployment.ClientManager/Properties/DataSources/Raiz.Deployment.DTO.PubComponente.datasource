@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="PubComponente" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Raiz.Deployment.DTO.PubComponente, Raiz.Deployment.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Raiz.Deployment.DTO.PubComponente, Raiz.Deployment.DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5d08d6a356a15168</TypeInfo>
 </GenericObjectDataSource>

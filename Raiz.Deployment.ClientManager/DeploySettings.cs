@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 
 namespace Raiz.Deployment.ClientManager
@@ -23,12 +24,17 @@ namespace Raiz.Deployment.ClientManager
 
         public static string ObtenerRutaServidor()
         {
-            return "http://192.168.74.1/RaizNet/Modulos/";
+            //return "http://192.168.105.145/RaizNet/Modulos/";
+
+            var ruta=ConfigurationManager.AppSettings["rutaServidor"];
+            return ruta;
+
+
         }
 
         public static string ObtenerRutaLocal()
         {
-            string _rutaInstalacion = "RaizNetTest";
+            string _rutaInstalacion = ConfigurationManager.AppSettings["carpetaLocal"]; //"RaizNetTest";
             var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), _rutaInstalacion);
             return ruta;
 
@@ -36,8 +42,18 @@ namespace Raiz.Deployment.ClientManager
 
         public static  string ObtenerNombreLog()
         {
-            return "Descargas.txt";
+            //return "Descargas.txt";
+            return ConfigurationManager.AppSettings["nombreLog"];
 
+        }
+
+        public static string UsuarioConectado { get; set; }
+
+        public static string OpcionAdministracionMenu()
+        {
+            //return "RAI0001";
+           var opcionAdmin= ConfigurationManager.AppSettings["opcionAdmin"];
+           return opcionAdmin;
         }
 
     }
